@@ -1,7 +1,7 @@
 const CONSTANTS = {
-    GRAVITY: 0.1,
-    FLAP_SPEED: 8,
-    TERMINAL_VEL: 12,
+    GRAVITY: 0.4,
+    JUMP_SPEED: 8,
+    TERMINAL_VEL: 10,
     PLAYER_WIDTH: 36,
     PLAYER_HEIGHT: 42
 };
@@ -11,8 +11,12 @@ export default class Player {
     constructor(dimensions) {
         this.dimensions = dimensions;
         this.x = this.dimensions.width / 2;
-        this.y = this.dimensions.height - this.dimensions.height / 8;
+        // this.y = this.dimensions.height - this.dimensions.height / 8;
+        this.y = 0 ;
         this.vel = 0;
+
+        this.right = false;
+        this.left = false;
 
         this.sprite = new Image();
         this.sprite.src = "img/sprite.png";
@@ -31,14 +35,15 @@ export default class Player {
     jump() {
         //if this were a more realistic bird simulation, we would be adding to the velocity
         //instead of just assigning it outright
-        //to make the experience more fun and 'bouncy' we just set it directly
-        this.vel = -1 * CONSTANTS.FLAP_SPEED;
+        this.vel = -1 * CONSTANTS.JUMP_SPEED;
     }
 
     move() {
         //for each frame, the player should move by it's current velocity
         //velocity is 'pixels per frame', so each frame it should update position by vel
         this.y += this.vel;
+        if (this.left) this.x -= 10;
+        if (this.right) this.x += 10;
         //the acceleration of gravity is in pixels per second per second
         //so each second, it changes the velocity by whatever the gravity constant is
         this.vel += CONSTANTS.GRAVITY;
