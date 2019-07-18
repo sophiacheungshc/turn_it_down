@@ -12,6 +12,7 @@ export default class TurnItDown {
 
         this.animate = this.animate.bind(this);
         this.player = new Player(this.dimensions);
+        this.platform = new Platform(this.dimensions);
 
         window.addEventListener("keydown", this.key.bind(this));
         window.addEventListener("keyup", this.keyUp.bind(this))
@@ -36,6 +37,7 @@ export default class TurnItDown {
         // console.log("rendering");
         this.backgroundDraw();
         this.player.animate(this.ctx);
+        this.platform.animate(this.ctx);
     }
 
     stopAnimation(){
@@ -50,10 +52,6 @@ export default class TurnItDown {
         this.y -= 1;
         console.log(this.y);
         // this.ctx.drawImage(this.background, 0, 0, 480, 900 - 640, 0, 0, 480, 640 + (900 - 640));    
-    }
-
-    backgroundMove(){
-
     }
 
 }
