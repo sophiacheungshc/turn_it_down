@@ -28,7 +28,6 @@ export default class Player {
     }
 
     draw(ctx) {
-
         ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x, this.y, 36, 42);
     }
 
