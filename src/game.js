@@ -11,8 +11,19 @@ export default class TurnItDown {
         this.animate = this.animate.bind(this);
 
         this.player = new Player(this.dimensions);
-        this.animate();
+
+        this.registerEvents();
         
+    }
+
+    registerEvents() {
+        this.boundClickHandler = this.click.bind(this);
+        this.ctx.canvas.addEventListener("mousedown", this.boundClickHandler);
+    }
+
+    click(e) {
+        this.animate();
+        this.player.jump();
     }
 
     animate(){
