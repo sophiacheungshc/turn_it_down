@@ -45,7 +45,7 @@ export default class TurnItDown {
     backgroundDraw(){
         this.ctx.drawImage(this.background, this.x, this.y, 480, 640, 0, 0, 480, 640);
         if (this.y < 0) {
-            this.y += 1500;
+            this.y += (1500-640);
         }
         this.y -= 1;
         console.log(this.y);
