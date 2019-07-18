@@ -7,6 +7,8 @@ export default class TurnItDown {
 
         this.background = new Image();
         this.background.src = "img/background.png";
+        this.x = 0;
+        this.y = 100;
 
         this.animate = this.animate.bind(this);
         this.player = new Player(this.dimensions);
@@ -31,7 +33,7 @@ export default class TurnItDown {
 
     animate(){
         this.frame = requestAnimationFrame(this.animate);
-        console.log("rendering");
+        // console.log("rendering");
         this.backgroundDraw();
         this.player.animate(this.ctx);
     }
@@ -41,8 +43,17 @@ export default class TurnItDown {
     }
 
     backgroundDraw(){
-        this.ctx.drawImage(this.background, 0, 900-640, 480, 640, 0, 0, 480, 640);    
+        this.ctx.drawImage(this.background, this.x, this.y, 480, 640, 0, 0, 480, 640);
+        if (this.y < 0) {
+            this.y += 1500;
+        }
+        this.y -= 1;
+        console.log(this.y);
         // this.ctx.drawImage(this.background, 0, 0, 480, 900 - 640, 0, 0, 480, 640 + (900 - 640));    
+    }
+
+    backgroundMove(){
+
     }
 
 }

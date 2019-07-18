@@ -11,8 +11,8 @@ export default class Player {
     constructor(dimensions) {
         this.dimensions = dimensions;
         this.x = this.dimensions.width / 2;
-        // this.y = this.dimensions.height - this.dimensions.height / 8;
-        this.y = 0 ;
+        this.y = this.dimensions.height - this.dimensions.height / 8;
+        // this.y = 0 ;
         this.vel = 0;
 
         this.right = false;
