@@ -10,8 +10,8 @@ export default class Player {
 
     constructor(dimensions) {
         this.dimensions = dimensions;
-        this.x = this.dimensions.width / 3;
-        this.y = this.dimensions.height / 2;
+        this.x = this.dimensions.width / 2;
+        this.y = this.dimensions.height - this.dimensions.height / 8;
         this.vel = 0;
 
         this.sprite = new Image();
@@ -23,7 +23,7 @@ export default class Player {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.sprite, 0, 0, 18, 20, 50, 50, 18, 20);
+        ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x, this.y, 36, 42);
     }
 
 }
