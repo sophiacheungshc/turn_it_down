@@ -9,6 +9,8 @@ export default class TurnItDown {
         this.background.src = "img/background.png";
 
         this.animate = this.animate.bind(this);
+
+        this.player = new Player(this.dimensions);
         this.animate();
         
     }
@@ -17,6 +19,7 @@ export default class TurnItDown {
         this.frame = requestAnimationFrame(this.animate);
         console.log("rendering");
         this.backgroundDraw();
+        this.player.animate(this.ctx);
     }
 
     stopAnimation(){
