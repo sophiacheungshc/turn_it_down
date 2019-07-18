@@ -12,18 +12,21 @@ export default class TurnItDown {
 
         this.player = new Player(this.dimensions);
 
-        this.registerEvents();
+        this.boundClickHandler = this.click.bind(this);
+        window.addEventListener("keydown", this.boundClickHandler);
+
+        this.animate();
         
     }
 
-    registerEvents() {
-        this.boundClickHandler = this.click.bind(this);
-        this.ctx.canvas.addEventListener("mousedown", this.boundClickHandler);
-    }
+    // registerEvents() {
+    //     console.log('register');
+    //     this.boundClickHandler = this.click.bind(this);
+    //     this.ctx.canvas.addEventListener("click", this.boundClickHandler);
+    // }
 
     click(e) {
-        this.animate();
-        this.player.jump();
+        if (e.keyCode === 38) this.player.jump();
     }
 
     animate(){

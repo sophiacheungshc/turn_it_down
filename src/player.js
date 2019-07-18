@@ -1,5 +1,5 @@
 const CONSTANTS = {
-    GRAVITY: 0.4,
+    GRAVITY: 0.1,
     FLAP_SPEED: 8,
     TERMINAL_VEL: 12,
     PLAYER_WIDTH: 36,
@@ -19,10 +19,12 @@ export default class Player {
     }
 
     animate(ctx) {
+        this.move();
         this.draw(ctx);
     }
 
     draw(ctx) {
+
         ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x, this.y, 36, 42);
     }
 
