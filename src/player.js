@@ -41,7 +41,12 @@ export default class Player {
     move() {
         //for each frame, the player should move by it's current velocity
         //velocity is 'pixels per frame', so each frame it should update position by vel
-        this.y += this.vel;
+        if (this.y >= this.dimensions.height) {
+            this.y = this.dimensions.height - CONSTANTS.PLAYER_HEIGHT - CONSTANTS.PLAYER_HEIGHT;
+        } else if (this.y + this.vel < this.dimensions.height - CONSTANTS.PLAYER_HEIGHT ) {
+            this.y += this.vel;
+        }
+
         if (this.left) this.x -= 10;
         if (this.right) this.x += 10;
         //the acceleration of gravity is in pixels per second per second
@@ -57,6 +62,7 @@ export default class Player {
                 this.vel = CONSTANTS.TERMINAL_VEL * -1;
             }
         }
+
     }
 
 }
