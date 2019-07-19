@@ -18,8 +18,7 @@ export default class TurnItDown {
         window.addEventListener("keydown", this.key.bind(this));
         window.addEventListener("keyup", this.keyUp.bind(this))
 
-        this.animate();
-        
+        this.animate();    
     }
 
     key(e) {
@@ -41,7 +40,7 @@ export default class TurnItDown {
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
-        
+        if (this.gameOver()) this.stopAnimation();
     }
 
     stopAnimation(){
@@ -55,6 +54,13 @@ export default class TurnItDown {
         }
         this.y -= 0.2;
         // this.ctx.drawImage(this.background, 0, 0, 480, 900 - 640, 0, 0, 480, 640 + (900 - 640));    
+    }
+
+    gameOver(){
+        if (this.player.y >= this.dimensions.height) {
+            return true;
+        } 
+        return false;
     }
 
 }

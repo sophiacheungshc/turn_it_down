@@ -59,9 +59,7 @@ export default class Player {
         // } else if (this.y + this.vel < this.dimensions.height - CONSTANTS.PLAYER_HEIGHT ) {
         //     this.y += this.vel;
         // }
-
-        
-        
+      
         if (this.left) this.x -= 4;
         if (this.right) this.x += 4;
         //the acceleration of gravity is in pixels per second per second
