@@ -71,8 +71,8 @@ export default class Platform {
 
     moveTiles() {
         this.eachTileLine(function (tileLine) {
-            tileLine[0].y += 1;
-            tileLine[1].y += 1;
+            tileLine[0].y += 0.5;
+            tileLine[1].y += 0.5;
 
             const newTiles = this.randomTiles(100);
 

@@ -32,7 +32,7 @@ export default class Player {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x, this.y, 36, 42);
+        ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x - 18, this.y, 36, 42);
     }
 
     jump() {
@@ -48,18 +48,12 @@ export default class Player {
         //     this.y += this.vel;
         // }
 
-        if (this.collidesPlatformTop()[0]) {
-            this.y = this.collidesPlatformTop()[1] + CONSTANTS.PLAYER_HEIGHT;
-        } else {
-            this.y += this.vel;
-        }
-
-
-        if (this.left) this.x -= 10;
-        if (this.right) this.x += 10;
+        
+        
+        if (this.left) this.x -= 4;
+        if (this.right) this.x += 4;
         //the acceleration of gravity is in pixels per second per second
         //so each second, it changes the velocity by whatever the gravity constant is
-        this.vel += CONSTANTS.GRAVITY;
         //we set a 'terminal velocity', a maximum speed the player can travel
         if (Math.abs(this.vel) > CONSTANTS.TERMINAL_VEL) {
             //if the terminal velocity is exceeded, we set it to the terminal velicty
@@ -69,26 +63,32 @@ export default class Player {
                 this.vel = CONSTANTS.TERMINAL_VEL * -1;
             }
         }
-
+        const platformCollides = this.collidesPlatformTop();
+        if (platformCollides[0]) {
+            this.y = platformCollides[1] - CONSTANTS.PLAYER_HEIGHT;
+            this.vel = 0;
+        } else {
+            this.vel += CONSTANTS.GRAVITY;
+            this.y += this.vel;
+        }
+        
     }
 
     collidesPlatformTop(){
-        const collides = false;
-        const tileTop = null;
+        let collides = false;
+        let tileTop = null;
 
-        debugger
         this.platform.tiles.forEach( tileLine =>  {
-            console.log(tileLine)
             tileLine.forEach( tile => {
-                console.log(tile)
-                if (this.y + CONSTANTS.PLAYER_HEIGHT < tile.y && this.y + CONSTANTS.PLAYER_HEIGHT + this.vel >= tile.y
-                    && this.x > tile.x && this.x < tile.x + tile.w){
+                //conditional checking if tile top is between player old y pos and player new pos
+                //x + 10 to allow player to stand on one foot without falling thru
+                if (this.y + CONSTANTS.PLAYER_HEIGHT <= tile.y && this.y + CONSTANTS.PLAYER_HEIGHT + this.vel >= tile.y
+                    && this.x + 10 > tile.x && this.x - 10 < tile.x + tile.w){
                     collides = true;
                     tileTop = tile.y;
                 }
             })
         })
-        console.log(collides);
         return [collides, tileTop];
     };
 
