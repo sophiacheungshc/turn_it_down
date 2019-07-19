@@ -1,7 +1,3 @@
-const CONSTANTS = {
-    TILE_SPEED: 1
-};
-
 export default class Platform {
     constructor(dimensions) {
         this.dimensions = dimensions;

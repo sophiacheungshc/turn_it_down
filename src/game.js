@@ -12,13 +12,25 @@ export default class TurnItDown {
         this.y = 600;
 
         this.animate = this.animate.bind(this);
-        this.platform = new Platform(this.dimensions);
-        this.player = new Player(this.dimensions, this.platform);
 
         window.addEventListener("keydown", this.key.bind(this));
         window.addEventListener("keyup", this.keyUp.bind(this))
 
-        this.animate();    
+        this.restart();
+    }
+    
+    restart() {
+        this.running = false;
+        this.score = 0;
+        this.platform = new Platform(this.dimensions);
+        this.player = new Player(this.dimensions, this.platform);
+
+        this.animate();
+    }
+
+    play() {
+        this.running = true;
+        this.animate();
     }
 
     key(e) {
@@ -35,25 +47,34 @@ export default class TurnItDown {
     }
 
     animate(){
-        this.frame = requestAnimationFrame(this.animate);
-        // console.log("rendering");
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
-        if (this.gameOver()) this.stopAnimation();
+        console.log(this.frame);
+        if (this.gameOver()) {
+            alert(this.score);
+            this.ctx.clearRect(0, 0, 480, 640);
+            this.restart();
+        } else {
+            if (this.running) {
+                this.frame = requestAnimationFrame(this.animate);
+            } else {
+                this.play();
+            }
+        }    
     }
 
-    stopAnimation(){
-        cancelAnimationFrame(this.frame);
-    }
+    // stopAnimation(){
+    //     cancelAnimationFrame(this.frame);
+    // }
 
     backgroundDraw(){
         this.ctx.drawImage(this.background, this.x, this.y, 480, 640, 0, 0, 480, 640);
         if (this.y < 0) {
             this.y += (2400-640);
         }
+        //background scroll
         this.y -= 0.2;
-        // this.ctx.drawImage(this.background, 0, 0, 480, 900 - 640, 0, 0, 480, 640 + (900 - 640));    
     }
 
     gameOver(){
