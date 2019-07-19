@@ -15,7 +15,8 @@ export default class Player {
         this.platform = platform;
 
         this.x = this.dimensions.width / 2;
-        this.y = this.dimensions.height - this.dimensions.height / 8;
+        // this.y = this.dimensions.height - this.dimensions.height / 8;
+        this.y = 100;
 
         this.vel = 0;
 
@@ -36,7 +37,11 @@ export default class Player {
     }
 
     jump() {
-        this.vel = -1 * CONSTANTS.JUMP_SPEED;
+        console.log('check for jump', this.vel)
+        if (this.vel < 1) {
+            console.log(this.vel)
+            this.vel = -1 * CONSTANTS.JUMP_SPEED
+        };
     }
 
     move() {

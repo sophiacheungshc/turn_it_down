@@ -23,7 +23,9 @@ export default class TurnItDown {
     }
 
     key(e) {
-        if (e.keyCode === 38) this.player.jump();
+        if (e.keyCode === 38) {
+            this.player.jump();
+        }
         if (e.keyCode === 37) this.player.left = true;
         if (e.keyCode === 39) this.player.right = true;
     }
@@ -51,7 +53,7 @@ export default class TurnItDown {
         if (this.y < 0) {
             this.y += (2400-640);
         }
-        this.y -= 0.5;
+        this.y -= 0.2;
         // this.ctx.drawImage(this.background, 0, 0, 480, 900 - 640, 0, 0, 480, 640 + (900 - 640));    
     }
 
