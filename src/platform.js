@@ -1,8 +1,5 @@
 const CONSTANTS = {
-    TILE_SPEED: 2,
-    EDGE_BUFFER: 50,
-    TILE_SPACING: 220,
-    WARM_UP_SECONDS: 1
+    TILE_SPEED: 2
 };
 
 export default class Platform {
@@ -12,49 +9,45 @@ export default class Platform {
         this.platform = new Image();
         this.platform.src = "img/platform.png";
 
-        const firstTileDistance =
-            this.dimensions.width +
-            (CONSTANTS.WARM_UP_SECONDS * 60 * CONSTANTS.TILE_SPEED);
-
-        //tile(x-pos(0 to 2), y-pos(0 to 5))
         this.protoTiles = [
-            {shortTile: {
+            // {shortTile: 
+            {
                 sX: 36,
                 sY: 476,
                 w: 74,
                 h: 514,
                 x: 0,
                 y: 0
-            }},
-            {medTile: {
+            },
+            // {medTile: 
+            {
                 sX: 0,
                 sY: 329,
                 w: 111,
                 h: 342,
                 x: 0,
                 y: 0
-            }},
-            {longTile: {
+            },
+            // {longTile: 
+            {
                 sX: 0,
                 sY: 165,
                 w: 166,
                 h: 196,
                 x: 0,
                 y: 0
-            }},
+            },
         ];
 
+        //100-500 indicate y positions => lines 1 - 5
+        debugger
         this.tiles = [
-            this.randomTiles(0),
-            this.randomTiles(1),
-            this.randomTiles(2),
-            this.randomTiles(3),
-            this.randomTiles(4)
+            this.randomTiles(100),
+            this.randomTiles(200),
+            this.randomTiles(300),
+            this.randomTiles(400),
+            this.randomTiles(500)
         ];
-
-            // this.randomTile(firstTileDistance),
-            // this.randomTile(firstTileDistance + CONSTANTS.TILE_SPACING),
-            // this.randomTile(firstTileDistance + (CONSTANTS.TILE_SPACING * 2)),
     
     }
 
@@ -85,16 +78,32 @@ export default class Platform {
 
     drawTiles(ctx) {
         this.eachTileLine(function (tileLine) {
-            //draw left tile
-            ctx.drawImage(this.platform, 0, 0, 36, 42, this.x, this.y, 36, 42);
+            let sX = tileLine[0].sX;
+            let sY = tileLine[0].sY;
+            let w = tileLine[0].w;
+            let h = tileLine[0].h;
+            // let x = Math.floor(Math.random() * (240 - w + 1));
+            let x = 50;
+            let y = tileLine[2];
 
+            //draw left tile
+            ctx.drawImage(this.platform, sX, sY, w, h, x, y, w, h);
+
+            sX = tileLine[1].sX;
+            sY = tileLine[1].sY;
+            w = tileLine[1].w;
+            h = tileLine[1].h;
+            // x = Math.floor(Math.random() * (480 - w - 240 + 1)) + 240; ///Math.floor(Math.random() * (max - min + 1) ) + min
+            x = 100; 
+            y = tileLine[2];
+            debugger
             //draw right tile
-            ctx.drawImage(this.platform, 0, 0, 36, 42, this.x, this.y, 36, 42);
+            ctx.drawImage(this.platform, sX, sY, w, h, x, y, w, h);
         });
     }
 
     animate(ctx) {
-        this.moveTiles();
+        // this.moveTiles();
         this.drawTiles(ctx);
     }
 
