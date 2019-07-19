@@ -52,7 +52,7 @@ export default class TurnItDown {
         this.player.animate(this.ctx);
         console.log(this.frame);
         if (this.gameOver()) {
-            alert(this.score);
+            alert("Game Over :(");
             this.ctx.clearRect(0, 0, 480, 640);
             this.restart();
         } else {

@@ -2,7 +2,7 @@ import Platform from './platform';
 
 const CONSTANTS = {
     GRAVITY: 0.4,
-    JUMP_SPEED: 8,
+    JUMP_SPEED: 7,
     TERMINAL_VEL: 10,
     PLAYER_WIDTH: 36,
     PLAYER_HEIGHT: 42
