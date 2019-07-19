@@ -49,7 +49,7 @@ export default class Player {
         // }
 
         if (this.collidesPlatformTop()[0]) {
-            this.y = this.collidesPlatformTop()[1];
+            this.y = this.collidesPlatformTop()[1] + CONSTANTS.PLAYER_HEIGHT;
         } else {
             this.y += this.vel;
         }
@@ -70,9 +70,6 @@ export default class Player {
             }
         }
 
-        //checks for tile collision
-        // if (collidesWith(this.x, this.y)) do something
-
     }
 
     collidesPlatformTop(){
@@ -84,7 +81,7 @@ export default class Player {
             console.log(tileLine)
             tileLine.forEach( tile => {
                 console.log(tile)
-                if (this.y <= tile.y && this.y + this.vel > tile.y
+                if (this.y + CONSTANTS.PLAYER_HEIGHT < tile.y && this.y + CONSTANTS.PLAYER_HEIGHT + this.vel >= tile.y
                     && this.x > tile.x && this.x < tile.x + tile.w){
                     collides = true;
                     tileTop = tile.y;
