@@ -1,5 +1,22 @@
+@font-face {
+  font-family: retroFont;
+  src: url(fipps-regular.otf);
+}
+
 canvas {
     border: 1px solid #000;
+    display: block;
+    margin: 0 auto;
+}
+
+body {
+    width: auto;
+    background-color: #000;
+}
+
+h1 {
+    font-family: retroFont;
+    color: white;
     display: block;
     margin: 0 auto;
 }
