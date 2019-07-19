@@ -97,7 +97,6 @@ export default class Platform {
             ctx.drawImage(this.platform, tileLine[0].sX, tileLine[0].sY, 
                 tileLine[0].w, tileLine[0].h, tileLine[0].x, tileLine[0].y, 
                 tileLine[0].w, tileLine[0].h);
-  
                 
             //draw right tile
             ctx.drawImage(this.platform, tileLine[1].sX, tileLine[1].sY,
@@ -105,52 +104,11 @@ export default class Platform {
                 tileLine[1].w, tileLine[1].h);
 
         });
-
     }
 
     animate(ctx) {
         this.moveTiles();
         this.drawTiles(ctx);
     }
-
-    //functions below check for player/platform overlap
-
-
-    // collidePlatformLeft(player, tile) {
-
-    //     if (player.getRight() > tile_left && player.getOldRight() <= tile_left) {
-
-    //         player.setRight(tile_left - 0.01);
-    //         player.velocity_x = 0;
-    //         return true;
-
-    //     } return false;
-
-    // }
-
-    // collidePlatformRight(player, tile_right) {
-
-    //     if (player.getLeft() < tile_right && player.getOldLeft() >= tile_right) {
-
-    //         player.setLeft(tile_right);
-    //         player.velocity_x = 0;
-    //         return true;
-
-    //     } return false;
-
-    // }
-
-    // collidePlatformTop(player, tile_top) {
-
-    //     if (player.getBottom() > tile_top && player.getOldBottom() <= tile_top) {
-
-    //         player.setBottom(tile_top - 0.01);
-    //         player.velocity_y = 0;
-    //         player.jumping = false;
-    //         return true;
-
-    //     } return false;
-
-    // }
 
 }

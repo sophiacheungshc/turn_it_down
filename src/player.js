@@ -19,6 +19,7 @@ export default class Player {
         this.y = 100;
 
         this.vel = 0;
+        this.jumpCount = 2;
 
         this.right = false;
         this.left = false;
@@ -37,11 +38,16 @@ export default class Player {
     }
 
     jump() {
-        console.log('check for jump', this.vel)
-        if (this.vel < 1) {
+        //allows for rapid double jump with < 1 ---> must press upkey again before player goes down with gravity 
+        if (this.jumpCount > 0 && this.vel < 1) {
+            console.log(this.jumpCount)
+            this.vel = -1 * CONSTANTS.JUMP_SPEED;
             console.log(this.vel)
-            this.vel = -1 * CONSTANTS.JUMP_SPEED
-        };
+            this.jumpCount -= 1;
+        } else if (this.jumpCount === 0 && this.vel < 1) {
+            this.jumpCount = 2; 
+        }
+
     }
 
     move() {
@@ -72,6 +78,7 @@ export default class Player {
         if (platformCollides[0]) {
             this.y = platformCollides[1] - CONSTANTS.PLAYER_HEIGHT;
             this.vel = 0;
+            this.jumpCount = 2;
         } else {
             this.vel += CONSTANTS.GRAVITY;
             this.y += this.vel;
