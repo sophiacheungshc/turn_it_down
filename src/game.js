@@ -1,4 +1,5 @@
 import Player from "./player";
+import Platform from './platform';
 
 export default class TurnItDown { 
     constructor(canvas) {
@@ -37,7 +38,7 @@ export default class TurnItDown {
         // console.log("rendering");
         this.backgroundDraw();
         this.player.animate(this.ctx);
-        this.platform.animate(this.ctx);
+        // this.platform.animate(this.ctx);
     }
 
     stopAnimation(){

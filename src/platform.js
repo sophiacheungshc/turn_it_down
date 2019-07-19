@@ -19,25 +19,39 @@ export default class Platform {
             (CONSTANTS.WARM_UP_SECONDS * 60 * CONSTANTS.TILE_SPEED);
 
         //tile(x-pos(0 to 2), y-pos(0 to 5))
-        this.tiles = [
+        this.protoTiles = [
             {shortTile: {
                 sX: 36,
                 sY: 476,
                 w: 74,
-                h: 514
+                h: 514,
+                x: 0,
+                y: 0
             }},
             {medTile: {
                 sX: 0,
                 sY: 329,
                 w: 111,
-                h: 342
+                h: 342,
+                x: 0,
+                y: 0
             }},
             {longTile: {
                 sX: 0,
                 sY: 165,
                 w: 166,
-                h: 196
+                h: 196,
+                x: 0,
+                y: 0
             }},
+        ];
+
+        this.tiles = [
+            this.randomTiles(0),
+            this.randomTiles(1),
+            this.randomTiles(2),
+            this.randomTiles(3),
+            this.randomTiles(4)
         ];
 
             // this.randomTile(firstTileDistance),
@@ -46,37 +60,24 @@ export default class Platform {
     
     }
 
-    randomTile(y) {
-        // const heightRange = this.dimensions.height - (2 * CONSTANTS.EDGE_BUFFER) - CONSTANTS.GAP_HEIGHT;
-        // const gapTop = (Math.random() * heightRange) + CONSTANTS.EDGE_BUFFER;
-        const tile = {
-            topTile: {
-                left: x,
-                right: CONSTANTS.TILE_WIDTH + x,
-                top: 0,
-                bottom: gapTop
-            },
-            bottomTile: {
-                left: x,
-                right: CONSTANTS.TILE_WIDTH + x,
-                top: gapTop + CONSTANTS.GAP_HEIGHT,
-                bottom: this.dimensions.height
-            },
-            passed: false
-        };
-        return tile;
+    randomTiles(y) {
+        //random tile out of 3 different lengths
+        const leftTile = this.protoTiles[Math.floor(Math.random() * 3)];
+        const rightTile = this.protoTiles[Math.floor(Math.random() * 3)];
+        
+        return [leftTile, rightTile, y];
     }
 
-    eachTile(callback) {
+    eachTileX(callback) {
         this.tiles.forEach(callback.bind(this));
     }
 
     moveTiles() {
-        this.eachTile(function (pipe) {
-            pipe.topTile.left -= CONSTANTS.PIPE_SPEED;
-            pipe.topTile.right -= CONSTANTS.PIPE_SPEED;
-            pipe.bottomPipe.left -= CONSTANTS.PIPE_SPEED;
-            pipe.bottomPipe.right -= CONSTANTS.PIPE_SPEED;
+        this.eachTileX(function (tileLine) {
+            tileLine[0] -= CONSTANTS.TILE_SPEED;
+            tile.topTile.right -= CONSTANTS.TILE_SPEED;
+            tile.bottomPipe.left -= CONSTANTS.TILE_SPEED;
+            pipe.bottomPipe.right -= CONSTANTS.TILE_SPEED;
         });
 
         //if a pipe has left the screen add a new one to the end
@@ -88,7 +89,7 @@ export default class Platform {
     }
 
     drawTiles(ctx) {
-        this.eachTile(function (tile) {
+        this.eachTileX(function (tile) {
             ctx.drawImage(this.platform, 0, 0, 36, 42, this.x, this.y, 36, 42);
 
             //draw top pipe
