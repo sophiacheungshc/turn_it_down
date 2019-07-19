@@ -5,7 +5,7 @@ const CONSTANTS = {
 export default class Platform {
     constructor(dimensions) {
         this.dimensions = dimensions;
-
+        
         this.platform = new Image();
         this.platform.src = "img/platform.png";
 
@@ -47,27 +47,21 @@ export default class Platform {
             this.randomTiles(400),
             this.randomTiles(500)
         ];
-        debugger
-        console.log(this.tiles)
+
     }
 
     randomTiles(y) {
         //2 random tiles out of 3 different lengths
+        //Object.assign because protoTiles were being changed each time 
         const leftTile = Object.assign({}, this.protoTiles[Math.floor(Math.random() * 3)]);
         const rightTile = Object.assign({}, this.protoTiles[Math.floor(Math.random() * 3)]);
 
-        ///Math.floor(Math.random() * (max - min + 1) ) + min
         leftTile.x = Math.floor(Math.random() * (240 - leftTile.w + 1));
         rightTile.x = Math.floor(Math.random() * (480 - rightTile.w - 240 + 1)) + 240;
-        // debugger
-        // leftTile.y = Math.floor(Math.random() * (500 - 100 + 1)) + 100;
+
         leftTile.y = y;
-        // console.log(leftTile.y)
-        // debugger
-        // rightTile.y = Math.floor(Math.random() * (500 - 100 + 1)) + 100;
         rightTile.y = y;
-        // console.log(rightTile.y)
-        // console.log([leftTile, rightTile])
+
         return [leftTile, rightTile];
     }
 
@@ -82,6 +76,7 @@ export default class Platform {
 
             const newTiles = this.randomTiles(100);
 
+            //if a tile line has left the bottom of the screen add a new line to the top
             if (tileLine[0].y >= 640) {
                 tileLine.shift();
                 tileLine.unshift(newTiles[0]);
@@ -92,15 +87,6 @@ export default class Platform {
             }
 
         });
-
-        //if a tile line has left the bottom of the screen add a new line to the top
-        // if (this.tiles[0][0].y >= 640) {
-        //     this.tiles.pop();
-        //     this.tiles.unshift(this.randomTiles(100));
-
-        // }
-
-
     }
 
     drawTiles(ctx) {
@@ -118,17 +104,6 @@ export default class Platform {
                 tileLine[1].w, tileLine[1].h, tileLine[1].x, tileLine[1].y,
                 tileLine[1].w, tileLine[1].h);
 
-            // console.log([tileLine[0].y, tileLine[1].y])
-
-            // const newTiles = this.randomTiles(100);
-            // if (tileLine[0].y >= 640) {
-            //     tileLine.shift();
-            //     tileLine.unshift(newTiles[0]);
-            // }
-            // if (tileLine[1].y >= 640) {
-            //     tileLine.pop();
-            //     tileLine.push(newTiles[1]);
-            // }
         });
 
     }
@@ -139,15 +114,7 @@ export default class Platform {
     }
 
     //functions below check for player/platform overlap
-    // collidePlatformBottom(player, tile) {
-    //     if (player.y < tile.y && ) {
 
-    //         player.setTop(tile_bottom);
-    //         player.velocity_y = 0;
-    //         return true;
-
-    //     } return false;
-    // }
 
     // collidePlatformLeft(player, tile) {
 

@@ -1,3 +1,5 @@
+import Platform from './platform';
+
 const CONSTANTS = {
     GRAVITY: 0.4,
     JUMP_SPEED: 8,
@@ -8,11 +10,13 @@ const CONSTANTS = {
 
 export default class Player {
 
-    constructor(dimensions) {
+    constructor(dimensions, platform) {
         this.dimensions = dimensions;
+        this.platform = platform;
+
         this.x = this.dimensions.width / 2;
         this.y = this.dimensions.height - this.dimensions.height / 8;
-        // this.y = 0 ;
+
         this.vel = 0;
 
         this.right = false;
@@ -32,19 +36,24 @@ export default class Player {
     }
 
     jump() {
-        //if this were a more realistic bird simulation, we would be adding to the velocity
-        //instead of just assigning it outright
         this.vel = -1 * CONSTANTS.JUMP_SPEED;
     }
 
     move() {
         //for each frame, the player should move by it's current velocity
         //velocity is 'pixels per frame', so each frame it should update position by vel
-        if (this.y >= this.dimensions.height) {
-            this.y = this.dimensions.height - CONSTANTS.PLAYER_HEIGHT - CONSTANTS.PLAYER_HEIGHT;
-        } else if (this.y + this.vel < this.dimensions.height - CONSTANTS.PLAYER_HEIGHT ) {
+        // if (this.y >= this.dimensions.height) {
+        //     this.y = this.dimensions.height - CONSTANTS.PLAYER_HEIGHT - CONSTANTS.PLAYER_HEIGHT;
+        // } else if (this.y + this.vel < this.dimensions.height - CONSTANTS.PLAYER_HEIGHT ) {
+        //     this.y += this.vel;
+        // }
+
+        if (this.collidesPlatformTop()[0]) {
+            this.y = this.collidesPlatformTop()[1];
+        } else {
             this.y += this.vel;
         }
+
 
         if (this.left) this.x -= 10;
         if (this.right) this.x += 10;
@@ -52,7 +61,6 @@ export default class Player {
         //so each second, it changes the velocity by whatever the gravity constant is
         this.vel += CONSTANTS.GRAVITY;
         //we set a 'terminal velocity', a maximum speed the player can travel
-        //this keeps the game from becoming too wild because the player is moving too fast to control
         if (Math.abs(this.vel) > CONSTANTS.TERMINAL_VEL) {
             //if the terminal velocity is exceeded, we set it to the terminal velicty
             if (this.vel > 0) {
@@ -62,6 +70,29 @@ export default class Player {
             }
         }
 
+        //checks for tile collision
+        // if (collidesWith(this.x, this.y)) do something
+
     }
+
+    collidesPlatformTop(){
+        const collides = false;
+        const tileTop = null;
+
+        debugger
+        this.platform.tiles.forEach( tileLine =>  {
+            console.log(tileLine)
+            tileLine.forEach( tile => {
+                console.log(tile)
+                if (this.y <= tile.y && this.y + this.vel > tile.y
+                    && this.x > tile.x && this.x < tile.x + tile.w){
+                    collides = true;
+                    tileTop = tile.y;
+                }
+            })
+        })
+        console.log(collides);
+        return [collides, tileTop];
+    };
 
 }

@@ -12,8 +12,8 @@ export default class TurnItDown {
         this.y = 600;
 
         this.animate = this.animate.bind(this);
-        this.player = new Player(this.dimensions);
         this.platform = new Platform(this.dimensions);
+        this.player = new Player(this.dimensions, this.platform);
 
         window.addEventListener("keydown", this.key.bind(this));
         window.addEventListener("keyup", this.keyUp.bind(this))
