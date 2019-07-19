@@ -45,6 +45,7 @@ export default class Platform {
             this.randomTiles(200),
             this.randomTiles(300),
             this.randomTiles(400),
+            ///player will start off on one of these bottom tiles
             this.randomTiles(500)
         ];
 

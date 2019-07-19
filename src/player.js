@@ -14,9 +14,10 @@ export default class Player {
         this.dimensions = dimensions;
         this.platform = platform;
 
-        this.x = this.dimensions.width / 2;
-        // this.y = this.dimensions.height - this.dimensions.height / 8;
-        this.y = 100;
+        ///player will start off on one of the bottom tiles
+        const startTile = this.platform.tiles[4][Math.floor(Math.random() * 2)];
+        this.x = startTile.x + (startTile.w / 2);
+        this.y = 500 - CONSTANTS.PLAYER_HEIGHT;
 
         this.vel = 0;
         this.jumpCount = 2;
