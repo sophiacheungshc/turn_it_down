@@ -1,7 +1,5 @@
 const CONSTANTS = {
     TILE_SPEED: 2,
-    GAP_HEIGHT: 150,
-    TILE_WIDTH: 50,
     EDGE_BUFFER: 50,
     TILE_SPACING: 220,
     WARM_UP_SECONDS: 1
@@ -60,58 +58,44 @@ export default class Platform {
     
     }
 
-    randomTiles(y) {
-        //random tile out of 3 different lengths
+    randomTiles(line) {
+        //2 random tiles out of 3 different lengths
         const leftTile = this.protoTiles[Math.floor(Math.random() * 3)];
         const rightTile = this.protoTiles[Math.floor(Math.random() * 3)];
         
-        return [leftTile, rightTile, y];
+        return [leftTile, rightTile, line];
     }
 
-    eachTileX(callback) {
+    eachTileLine(callback) {
         this.tiles.forEach(callback.bind(this));
     }
 
     moveTiles() {
-        this.eachTileX(function (tileLine) {
-            tileLine[0] -= CONSTANTS.TILE_SPEED;
-            tile.topTile.right -= CONSTANTS.TILE_SPEED;
-            tile.bottomPipe.left -= CONSTANTS.TILE_SPEED;
-            pipe.bottomPipe.right -= CONSTANTS.TILE_SPEED;
+        this.eachTileLine(function (tileLine) {
+            tileLine[0].y += CONSTANTS.TILE_SPEED;
+            tileLine[1].y += CONSTANTS.TILE_SPEED;
         });
 
-        //if a pipe has left the screen add a new one to the end
-        if (this.pipes[0].topTile.right <= 0) {
-            this.pipes.shift();
-            const newX = this.pipes[1].topTile.left + CONSTANTS.PIPE_SPACING;
-            this.pipes.push(this.randomPipe(newX));
+        //if a tile line has left the bottom of the screen add a new line to the top
+        if (this.tiles[0].y >= 640) {
+            this.tiles.pop();
+            this.tiles.unshift(this.randomTiles(0));
         }
     }
 
     drawTiles(ctx) {
-        this.eachTileX(function (tile) {
+        this.eachTileLine(function (tileLine) {
+            //draw left tile
             ctx.drawImage(this.platform, 0, 0, 36, 42, this.x, this.y, 36, 42);
 
-            //draw top pipe
-            ctx.fillRect(
-                tile.topTile.left,
-                tile.topTile.top,
-                CONSTANTS.TILE_WIDTH,
-                tile.topTile.bottom - tile.topTile.top
-            );
-            //draw bottom tile
-            ctx.fillRect(
-                tile.bottomTile.left,
-                tile.bottomTile.top,
-                CONSTANTS.TILE_WIDTH,
-                tile.bottomTile.bottom - tile.bottomTile.top
-            );
+            //draw right tile
+            ctx.drawImage(this.platform, 0, 0, 36, 42, this.x, this.y, 36, 42);
         });
     }
 
     animate(ctx) {
         this.moveTiles();
-        this.drawPipes(ctx);
+        this.drawTiles(ctx);
     }
 
 }
