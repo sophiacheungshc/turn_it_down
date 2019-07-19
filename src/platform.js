@@ -1,5 +1,5 @@
 const CONSTANTS = {
-    TILE_SPEED: 2
+    TILE_SPEED: 1
 };
 
 export default class Platform {
@@ -14,8 +14,8 @@ export default class Platform {
             {
                 sX: 36,
                 sY: 476,
-                w: 74,
-                h: 514,
+                w: 38,
+                h: 38,
                 x: 0,
                 y: 0
             },
@@ -24,7 +24,7 @@ export default class Platform {
                 sX: 0,
                 sY: 329,
                 w: 111,
-                h: 342,
+                h: 13,
                 x: 0,
                 y: 0
             },
@@ -33,7 +33,7 @@ export default class Platform {
                 sX: 0,
                 sY: 165,
                 w: 166,
-                h: 196,
+                h: 31,
                 x: 0,
                 y: 0
             },
@@ -55,8 +55,14 @@ export default class Platform {
         //2 random tiles out of 3 different lengths
         const leftTile = this.protoTiles[Math.floor(Math.random() * 3)];
         const rightTile = this.protoTiles[Math.floor(Math.random() * 3)];
-        
-        return [leftTile, rightTile, line];
+
+        ///Math.floor(Math.random() * (max - min + 1) ) + min
+        leftTile.x = Math.floor(Math.random() * (240 - leftTile.w + 1));
+        rightTile.x = Math.floor(Math.random() * (480 - rightTile.w - 240 + 1)) + 240;
+        leftTile.y = line;
+        rightTile.y = line;
+
+        return [leftTile, rightTile];
     }
 
     eachTileLine(callback) {
@@ -67,43 +73,39 @@ export default class Platform {
         this.eachTileLine(function (tileLine) {
             tileLine[0].y += CONSTANTS.TILE_SPEED;
             tileLine[1].y += CONSTANTS.TILE_SPEED;
+            if (tileLine[0].y >= 640) {
+                this.tiles.pop();
+                this.tiles.unshift(this.randomTiles(100));
+            }
         });
 
         //if a tile line has left the bottom of the screen add a new line to the top
-        if (this.tiles[0].y >= 640) {
-            this.tiles.pop();
-            this.tiles.unshift(this.randomTiles(0));
-        }
+        // if (this.tiles[0][0].y >= 640) {
+        //     this.tiles.pop();
+        //     this.tiles.unshift(this.randomTiles(100));
+
+        // }
+
     }
 
     drawTiles(ctx) {
+
         this.eachTileLine(function (tileLine) {
-            let sX = tileLine[0].sX;
-            let sY = tileLine[0].sY;
-            let w = tileLine[0].w;
-            let h = tileLine[0].h;
-            // let x = Math.floor(Math.random() * (240 - w + 1));
-            let x = 50;
-            let y = tileLine[2];
 
             //draw left tile
-            ctx.drawImage(this.platform, sX, sY, w, h, x, y, w, h);
+            ctx.drawImage(this.platform, tileLine[0].sX, tileLine[0].sY, 
+                tileLine[0].w, tileLine[0].h, tileLine[0].x, tileLine[0].y, 
+                tileLine[0].w, tileLine[0].h);
 
-            sX = tileLine[1].sX;
-            sY = tileLine[1].sY;
-            w = tileLine[1].w;
-            h = tileLine[1].h;
-            // x = Math.floor(Math.random() * (480 - w - 240 + 1)) + 240; ///Math.floor(Math.random() * (max - min + 1) ) + min
-            x = 100; 
-            y = tileLine[2];
-            debugger
             //draw right tile
-            ctx.drawImage(this.platform, sX, sY, w, h, x, y, w, h);
+            ctx.drawImage(this.platform, tileLine[1].sX, tileLine[1].sY,
+                tileLine[1].w, tileLine[1].h, tileLine[1].x, tileLine[1].y,
+                tileLine[1].w, tileLine[1].h);
         });
     }
 
     animate(ctx) {
-        // this.moveTiles();
+        this.moveTiles();
         this.drawTiles(ctx);
     }
 
