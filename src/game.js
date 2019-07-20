@@ -92,7 +92,7 @@ export default class TurnItDown {
                 this.frame = requestAnimationFrame(this.animate);
             } else if (this.state.current === this.state.getReady) {
                 this.ctx.clearRect(0, 0, 480, 640);
-                this.ctx.drawImage(this.background, 0, 0, 233, 111, this.dimensions.width / 4, this.dimensions.height / 2, 233, 111);
+                this.ctx.drawImage(this.ready, 0, 0, 400, 132, 45, this.dimensions.height / 4, 400, 132);
                 this.frame = requestAnimationFrame(this.animate);
             }
         }    
