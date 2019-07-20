@@ -3,7 +3,7 @@ const CONSTANTS = {
     JUMP_SPEED: 8,
     TERMINAL_VEL: 10,
     PLAYER_WIDTH: 40,
-    PLAYER_HEIGHT: 52
+    PLAYER_HEIGHT: 56
 };
 
 export default class Player {
@@ -26,15 +26,63 @@ export default class Player {
 
         this.sprite = new Image();
         this.sprite.src = "img/new.png";
+
+        this.idleAnimation = [
+            {sX: 0, sY: 384},
+            {sX: 56, sY: 384},
+            {sX: 112, sY: 384},
+            {sX: 165, sY: 384},
+            {sX: 219, sY: 384},
+            {sX: 277, sY: 384},
+            {sX: 331, sY: 384},
+            {sX: 389, sY: 384},
+            {sX: 443, sY: 384},
+            {sX: 500, sY: 384}
+        ];
+        this.rightAnimation = [
+            {sX: 0, sY: 0},
+            {sX: 53, sY: 0},
+            {sX: 107, sY: 0},
+            {sX: 163, sY: 0},
+            {sX: 217, sY: 0},
+            {sX: 273, sY: 0},
+            {sX: 329, sY: 0},
+            {sX: 383, sY: 0},
+            {sX: 439, sY: 0}
+        ];
+        this.leftAnimation = [
+            {sX: 0, sY: 554},
+            {sX: 60, sY: 554},
+            {sX: 112, sY: 554},
+            {sX: 170, sY: 554},
+            {sX: 225, sY: 554},
+            {sX: 278, sY: 554},
+            {sX: 333, sY: 554},
+            {sX: 390, sY: 554},
+            {sX: 443, sY: 554}
+        ];
+        this.frame = 0;
+        this.frameCount = 0;
     }
 
     animate(ctx) {
         this.move();
         this.draw(ctx);
+        // setTimeout(() => { this.frame = (this.frame + 1) % 10; }, 5000);
     }
     
     draw(ctx) {
-        ctx.drawImage(this.sprite, 0, 388, 40, 52, this.x - 18, this.y, 40, 52);
+        debugger
+        ctx.drawImage(this.sprite, this.idleAnimation[this.frame].sX, 
+            this.idleAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
+
+        if(this.frameCount <= 10){
+            this.frameCount += 1;
+        } else {
+            this.frame = (this.frame + 1) % 10;
+            this.frameCount = 0;
+        }
+        
     }
     
     jump() {
