@@ -36,8 +36,8 @@ export default class Player {
             {sX: 277, sY: 384},
             {sX: 331, sY: 384},
             {sX: 389, sY: 384},
-            {sX: 443, sY: 384},
-            {sX: 500, sY: 384}
+            {sX: 443, sY: 384}
+            // {sX: 500, sY: 384}
         ];
         this.rightAnimation = [
             {sX: 0, sY: 0},
@@ -63,23 +63,30 @@ export default class Player {
         ];
         this.frame = 0;
         this.frameCount = 0;
+        this.currentAnimation = this.idleAnimation;
     }
 
     animate(ctx) {
         this.move();
         this.draw(ctx);
-        // setTimeout(() => { this.frame = (this.frame + 1) % 10; }, 5000);
     }
     
     draw(ctx) {
-        debugger
-        ctx.drawImage(this.sprite, this.idleAnimation[this.frame].sX, 
-            this.idleAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
+        if (this.right){
+            this.currentAnimation = this.rightAnimation;
+        } else if (this.left) {
+            this.currentAnimation = this.leftAnimation;
+        } else {
+            this.currentAnimation = this.idleAnimation;
+        }
+        
+        ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
+            this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
 
         if(this.frameCount <= 10){
             this.frameCount += 1;
         } else {
-            this.frame = (this.frame + 1) % 10;
+            this.frame = (this.frame + 1) % 9;
             this.frameCount = 0;
         }
         
