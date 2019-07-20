@@ -8,17 +8,26 @@ export default class TurnItDown {
 
         this.background = new Image();
         this.background.src = "img/background.png";
+        this.music = new Audio();
+        this.music.src = "audio/sunflower.mp3";
         this.x = 0;
         this.y = 600;
 
         this.animate = this.animate.bind(this);
 
         window.addEventListener("keydown", this.key.bind(this));
-        window.addEventListener("keyup", this.keyUp.bind(this))
+        window.addEventListener("keyup", this.keyUp.bind(this));
+        window.addEventListener("click", this.click.bind(this));
 
         this.restart();
     }
     
+    click(e){
+        if (!this.running) {
+            this.play();
+            this.music.play();
+        }
+    }
     restart() {
         this.running = false;
         this.score = 0;
@@ -58,9 +67,7 @@ export default class TurnItDown {
         } else {
             if (this.running) {
                 this.frame = requestAnimationFrame(this.animate);
-            } else {
-                this.play();
-            }
+            } 
         }    
     }
 
@@ -79,6 +86,8 @@ export default class TurnItDown {
 
     gameOver(){
         if (this.player.y >= this.dimensions.height) {
+            this.music.pause();
+            this.music.currentTime = 0;
             return true;
         } 
         return false;
