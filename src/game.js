@@ -8,10 +8,16 @@ export default class TurnItDown {
 
         this.background = new Image();
         this.background.src = "img/background.png";
+        this.ready = new Image();
+        this.ready.src = "img/ready.png";
+        this.over = new Image();
+        this.over.src = "img/over.png";
+        this.retry = new Image();
+        this.retry.src = "img/retry.png";
+
+
         this.music = new Audio();
         this.music.src = "audio/sunflower.mp3";
-        this.gameover = new Image();
-        this.gameover.src = "img/gameover.png";
         this.x = 0;
         this.y = 600;
 
@@ -75,17 +81,18 @@ export default class TurnItDown {
         this.player.animate(this.ctx);
         if (this.gameOver()) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
-            this.ctx.drawImage(this.gameover, 0, 0, 233, 111, this.dimensions.width / 4, this.dimensions.height / 3, 233, 111);
+            this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
+            this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
         } else {
             if (this.state.current === this.state.game) {
                 this.frame = requestAnimationFrame(this.animate);
             } else if (this.state.current === this.state.over) {
                 this.ctx.clearRect(0, 0, 480, 640);
-                this.ctx.drawImage(this.gameover, 0, 0, 233, 111, this.dimensions.width / 4, this.dimensions.height / 3, 233, 111);
+                // this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 5, this.dimensions.height / 6, 250, 134);
                 this.frame = requestAnimationFrame(this.animate);
             } else if (this.state.current === this.state.getReady) {
                 this.ctx.clearRect(0, 0, 480, 640);
-                this.ctx.drawImage(this.background, 0, 0, 233, 111, this.dimensions.width / 4, this.dimensions.height / 3, 233, 111);
+                this.ctx.drawImage(this.background, 0, 0, 233, 111, this.dimensions.width / 4, this.dimensions.height / 2, 233, 111);
                 this.frame = requestAnimationFrame(this.animate);
             }
         }    

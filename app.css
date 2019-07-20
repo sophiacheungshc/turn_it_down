@@ -19,4 +19,13 @@ h1 {
     color: white;
     display: block;
     margin: 0 auto;
+    font-size: 40px;
+    text-align: center;
 }
+/* 
+h3 {
+     font-family: retroFont;
+    color: white;
+    display: block;
+    font-size: 20px;
+} */
