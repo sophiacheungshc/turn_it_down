@@ -2,8 +2,8 @@ const CONSTANTS = {
     GRAVITY: 0.4,
     JUMP_SPEED: 8,
     TERMINAL_VEL: 10,
-    PLAYER_WIDTH: 36,
-    PLAYER_HEIGHT: 42
+    PLAYER_WIDTH: 40,
+    PLAYER_HEIGHT: 52
 };
 
 export default class Player {
@@ -25,7 +25,7 @@ export default class Player {
         this.left = false;
 
         this.sprite = new Image();
-        this.sprite.src = "img/sprite.png";
+        this.sprite.src = "img/new.png";
     }
 
     animate(ctx) {
@@ -34,7 +34,7 @@ export default class Player {
     }
     
     draw(ctx) {
-        ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x - 18, this.y, 36, 42);
+        ctx.drawImage(this.sprite, 0, 388, 40, 52, this.x - 18, this.y, 40, 52);
     }
     
     jump() {
@@ -65,6 +65,8 @@ export default class Player {
     move() {
         //for each frame, the player should move by it's current velocity
         //velocity is 'pixels per frame', so each frame it should update position by vel
+
+        //this code prevents player from falling out of bounds
         // if (this.y >= this.dimensions.height) {
         //     this.y = this.dimensions.height - CONSTANTS.PLAYER_HEIGHT - CONSTANTS.PLAYER_HEIGHT;
         // } else if (this.y + this.vel < this.dimensions.height - CONSTANTS.PLAYER_HEIGHT ) {
