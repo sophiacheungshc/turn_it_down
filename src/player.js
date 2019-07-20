@@ -1,8 +1,6 @@
-import Platform from './platform';
-
 const CONSTANTS = {
     GRAVITY: 0.4,
-    JUMP_SPEED: 7,
+    JUMP_SPEED: 8,
     TERMINAL_VEL: 10,
     PLAYER_WIDTH: 36,
     PLAYER_HEIGHT: 42
@@ -10,9 +8,10 @@ const CONSTANTS = {
 
 export default class Player {
 
-    constructor(dimensions, platform) {
+    constructor(dimensions, platform, song) {
         this.dimensions = dimensions;
         this.platform = platform;
+        this.song = song;
 
         ///player will start off on one of the bottom tiles
         const startTile = this.platform.tiles[4][Math.floor(Math.random() * 2)];
@@ -33,22 +32,34 @@ export default class Player {
         this.move();
         this.draw(ctx);
     }
-
+    
     draw(ctx) {
         ctx.drawImage(this.sprite, 0, 0, 36, 42, this.x - 18, this.y, 36, 42);
     }
-
+    
     jump() {
         //allows for rapid double jump with < 1 ---> must press upkey again before player goes down with gravity 
         if (this.jumpCount > 0 && this.vel < 1) {
-            console.log(this.jumpCount)
             this.vel = -1 * CONSTANTS.JUMP_SPEED;
-            console.log(this.vel)
             this.jumpCount -= 1;
         } else if (this.jumpCount === 0 && this.vel < 1) {
             this.jumpCount = 2; 
         }
+        
+    }
+    
+    duck(){
+        if (this.madeIt(3.18) || this.madeIt(3.84) || 
+            this.madeIt(5.2) || this.madeIt(5.87)) { 
+            console.log('made it')
+        } else {
+            console.log(this.song.currentTime)
+        }
+    }
 
+    madeIt(time){
+        if (time > this.song.currentTime + 0.05 || time < this.song.currentTime - 0.05) return false;
+        return true;
     }
 
     move() {
@@ -101,6 +112,5 @@ export default class Player {
             })
         })
         return [collides, tileTop];
-    };
-
+    }
 }

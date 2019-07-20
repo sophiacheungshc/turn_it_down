@@ -32,7 +32,7 @@ export default class TurnItDown {
         this.running = false;
         this.score = 0;
         this.platform = new Platform(this.dimensions);
-        this.player = new Player(this.dimensions, this.platform);
+        this.player = new Player(this.dimensions, this.platform, this.music);
 
         this.animate();
     }
@@ -48,6 +48,7 @@ export default class TurnItDown {
         }
         if (e.keyCode === 37) this.player.left = true;
         if (e.keyCode === 39) this.player.right = true;
+        if (e.keyCode === 32) this.player.duck();
     }
 
     keyUp(e) {
@@ -59,7 +60,6 @@ export default class TurnItDown {
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
-        console.log(this.frame);
         if (this.gameOver()) {
             alert("Game Over :(");
             this.ctx.clearRect(0, 0, 480, 640);
