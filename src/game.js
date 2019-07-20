@@ -19,7 +19,7 @@ export default class TurnItDown {
 
         window.addEventListener("keydown", this.key.bind(this));
         window.addEventListener("keyup", this.keyUp.bind(this));
-        window.addEventListener("click", this.click.bind(this));
+        // window.addEventListener("click", this.click.bind(this));
 
         this.state = {
             current: 0,
@@ -31,14 +31,13 @@ export default class TurnItDown {
         this.restart();
     }
     
-    click(e){
+    start(){
         switch(this.state.current){
             case this.state.getReady:
                 this.state.current = this.state.game;
                 this.music.play();
                 break;
             case this.state.over:
-                console.log('clicked for state.over')
                 this.restart();
                 break;
         }
@@ -50,6 +49,8 @@ export default class TurnItDown {
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
             if (e.keyCode === 32) this.player.duck();
+        } else {
+            if (e.keyCode === 32) this.start();
         }
     }
 
