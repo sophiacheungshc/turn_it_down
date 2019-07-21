@@ -9,6 +9,10 @@ canvas {
     margin: 0 auto;
 }
 
+body .flash {
+    background-color: white;
+}
+
 body {
     width: auto;
     background-color: #000;
