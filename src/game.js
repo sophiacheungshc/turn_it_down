@@ -14,6 +14,8 @@ export default class TurnItDown {
         this.over.src = "img/over.png";
         this.retry = new Image();
         this.retry.src = "img/retry.png";
+        this.won = new Image();
+        this.won.src = "img/won.png";
 
 
         this.music = new Audio();
@@ -83,10 +85,16 @@ export default class TurnItDown {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
             this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
+        } else if (this.music.currentTime > 160) {
+                this.music.pause();
+                this.music.currentTime = 0;
+                this.state.current = this.state.over;
+                this.ctx.clearRect(0, 0, 480, 640);
+            this.ctx.drawImage(this.won, 0, 0, 439, 350, 20, 100, 439, 350);
         } else {
             if (this.state.current === this.state.game) {
                 this.frame = requestAnimationFrame(this.animate);
-            } else if (this.state.current === this.state.over) {
+            } else if (this.state.current === this.state.over && this.music.currentTime === 0) {
                 this.ctx.clearRect(0, 0, 480, 640);
                 // this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 5, this.dimensions.height / 6, 250, 134);
                 this.frame = requestAnimationFrame(this.animate);
@@ -94,8 +102,8 @@ export default class TurnItDown {
                 this.ctx.clearRect(0, 0, 480, 640);
                 this.ctx.drawImage(this.ready, 0, 0, 400, 132, 45, this.dimensions.height / 4, 400, 132);
                 this.frame = requestAnimationFrame(this.animate);
-            }
-        }    
+            }    
+        }
     }
         
     backgroundDraw(){

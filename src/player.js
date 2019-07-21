@@ -106,7 +106,7 @@ export default class Player {
         }
 
         //only shows falling when going down height of a double jump
-        if (this.vel <= 7) {
+        if (this.vel <= 9) {
             ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
                 this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
         } else {

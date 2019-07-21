@@ -22,10 +22,11 @@ h1 {
     font-size: 40px;
     text-align: center;
 }
-/* 
+
 h3 {
      font-family: retroFont;
     color: white;
     display: block;
-    font-size: 20px;
-} */
+    font-size: 15px;
+        text-align: center;
+}
