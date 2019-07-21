@@ -27,7 +27,7 @@ export default class Player {
         this.sprite = new Image();
         this.sprite.src = "img/sprite.png";
         this.ducking = new Image();
-        this.ducking.src = "img/nebula.png";
+        this.ducking.src = "img/duck.png";
 
         this.idleAnimation = [
             {sX: 0, sY: 384},
@@ -73,6 +73,17 @@ export default class Player {
             { sX: 389, sY: 384 },
             { sX: 443, sY: 384 }
         ];
+        this.fallingAnimation = [
+            { sX: 0, sY: 384 },
+            { sX: 56, sY: 384 },
+            { sX: 112, sY: 384 },
+            { sX: 165, sY: 384 },
+            { sX: 219, sY: 384 },
+            { sX: 277, sY: 384 },
+            { sX: 331, sY: 384 },
+            { sX: 389, sY: 384 },
+            { sX: 443, sY: 384 }
+        ];
 
         this.frame = 0;
         this.frameCount = 0;
@@ -94,17 +105,22 @@ export default class Player {
             this.currentAnimation = this.idleAnimation;
         }
 
-        
-        ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
-            this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
+        //only shows falling when going down height of a double jump
+        if (this.vel <= 7) {
+            ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
+                this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
+        } else {
+            ctx.drawImage(this.sprite, 107, 110, 40, 56, this.x, this.y, 40, 56);
+        }
             
         if (this.isDucking) {
             ctx.drawImage(this.ducking, 0, 0, 100, 100, this.x - 50, this.y - 30, 100, 100);
-            setTimeout(()=>{this.isDucking = false}, 100)
-            // this.isDucking = false;
+            setTimeout( ()=> {
+                this.isDucking = false
+            }, 100);
         }
 
-        if(this.frameCount <= 15){
+        if (this.frameCount <= 15){
             this.frameCount += 1;
         } else {
             this.frame = (this.frame + 1) % 9;
@@ -115,13 +131,13 @@ export default class Player {
     
     jump() {
         //allows for rapid double jump with < 1 ---> must press upkey again before player goes down with gravity 
-        if (this.jumpCount > 0 && this.vel < 1) {
+        if (this.jumpCount > 0 && this.vel < 1 || this.collidesPlatformTop()[0]) {
             this.vel = -1 * CONSTANTS.JUMP_SPEED;
             this.jumpCount -= 1;
-        } else if (this.jumpCount === 0 && this.vel < 1) {
+        } else if (this.jumpCount === 0 && this.collidesPlatformTop()[0]) {
             this.jumpCount = 2; 
         }
-        
+        //this.vel < 1 ||
     }
     
     duck(){
