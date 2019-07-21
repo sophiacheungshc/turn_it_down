@@ -25,7 +25,9 @@ export default class Player {
         this.left = false;
 
         this.sprite = new Image();
-        this.sprite.src = "img/new.png";
+        this.sprite.src = "img/sprite.png";
+        this.ducking = new Image();
+        this.ducking.src = "img/nebula.png";
 
         this.idleAnimation = [
             {sX: 0, sY: 384},
@@ -37,7 +39,6 @@ export default class Player {
             {sX: 331, sY: 384},
             {sX: 389, sY: 384},
             {sX: 443, sY: 384}
-            // {sX: 500, sY: 384}
         ];
         this.rightAnimation = [
             {sX: 0, sY: 0},
@@ -61,9 +62,22 @@ export default class Player {
             {sX: 390, sY: 554},
             {sX: 443, sY: 554}
         ];
+        this.duckAnimation = [
+            { sX: 0, sY: 384 },
+            { sX: 56, sY: 384 },
+            { sX: 112, sY: 384 },
+            { sX: 165, sY: 384 },
+            { sX: 219, sY: 384 },
+            { sX: 277, sY: 384 },
+            { sX: 331, sY: 384 },
+            { sX: 389, sY: 384 },
+            { sX: 443, sY: 384 }
+        ];
+
         this.frame = 0;
         this.frameCount = 0;
         this.currentAnimation = this.idleAnimation;
+        this.isDucking = false;
     }
 
     animate(ctx) {
@@ -79,11 +93,18 @@ export default class Player {
         } else {
             this.currentAnimation = this.idleAnimation;
         }
+
         
         ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
             this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
+            
+        if (this.isDucking) {
+            ctx.drawImage(this.ducking, 0, 0, 100, 100, this.x - 50, this.y - 30, 100, 100);
+            setTimeout(()=>{this.isDucking = false}, 100)
+            // this.isDucking = false;
+        }
 
-        if(this.frameCount <= 10){
+        if(this.frameCount <= 15){
             this.frameCount += 1;
         } else {
             this.frame = (this.frame + 1) % 9;
@@ -104,6 +125,8 @@ export default class Player {
     }
     
     duck(){
+        this.isDucking = true;
+
         if (this.madeIt(3.18) || this.madeIt(3.84) || 
             this.madeIt(5.2) || this.madeIt(5.87)) { 
             console.log('made it')
