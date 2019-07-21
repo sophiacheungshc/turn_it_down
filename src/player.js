@@ -114,7 +114,7 @@ export default class Player {
         }
             
         if (this.isDucking) {
-            ctx.drawImage(this.ducking, 0, 0, 100, 100, this.x - 50, this.y - 30, 100, 100);
+            ctx.drawImage(this.ducking, 0, 0, 100, 100, this.x - 50, this.y - 25, 100, 100);
             setTimeout( ()=> {
                 this.isDucking = false
             }, 100);
@@ -137,7 +137,6 @@ export default class Player {
         } else if (this.jumpCount === 0 && this.collidesPlatformTop()[0]) {
             this.jumpCount = 2; 
         }
-        //this.vel < 1 ||
     }
     
     duck(){
