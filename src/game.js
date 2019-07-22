@@ -42,6 +42,8 @@ export default class TurnItDown {
         switch(this.state.current){
             case this.state.getReady:
                 this.state.current = this.state.game;
+                this.song = new Song(this.ctx);
+                this.music = this.song.music;
                 this.music.play();
                 break;
             case this.state.over:
@@ -56,7 +58,6 @@ export default class TurnItDown {
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
             if (e.keyCode === 32) {
-                console.log(this.music.currentTime)
                 this.player.duck();
                 this.ducked = true;
                 setTimeout(() => {
@@ -91,7 +92,6 @@ export default class TurnItDown {
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
 
-        console.log(this.music.ended)
         if (this.gameOver()) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
