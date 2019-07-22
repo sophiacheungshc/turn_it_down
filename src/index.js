@@ -9,3 +9,8 @@ window.TurnItDown = new TurnItDown(canvas);
 // const audioCtx = new AudioContext();
 // const audioElement = document.querySelector('audio');
 // const track = audioCtx.createMediaElementSource(audioElement);
+
+// const source = audioCtx.createMediaStreamSource(stream);
+// source.connect(analyser);
+// analyser.connect(distortion);
+// distortion.connect(audioCtx.destination);

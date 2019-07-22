@@ -91,11 +91,12 @@ export default class TurnItDown {
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
 
+        console.log(this.music.ended)
         if (this.gameOver()) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
             this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
-        } else if (this.music.currentTime >= 300) {
+        } else if (this.music.ended) {
                 this.music.pause();
                 this.music.currentTime = 0;
                 this.state.current = this.state.over;
