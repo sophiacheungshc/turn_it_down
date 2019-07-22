@@ -4,7 +4,7 @@
 }
 
 canvas {
-    border: 1px solid #000;
+    border: 1px solid white;
     display: block;
     margin: 0 1rem;
 }
@@ -26,6 +26,10 @@ main {
     flex-direction: row;
 }
 
+main > * {
+    margin: 1rem;
+}
+
 p {
     text-align: center;
     font-size: 12px;
@@ -35,6 +39,7 @@ p {
 
 .rules {
     width: 480px;
+    min-width: 480px;
 }
 
 #instructions {
@@ -48,6 +53,12 @@ h1 {
     font-size: 40px;
     text-align: center;
     height: 5rem;
+    width: fit-content;
+    justify-self: center;
+}
+
+#spacebar {
+    margin-left: 11rem;
 }
 
 h3 {

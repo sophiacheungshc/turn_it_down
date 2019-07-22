@@ -100,28 +100,30 @@ export default class Player {
     }
     
     draw(ctx) {
-        if (this.right){
-            this.currentAnimation = this.rightAnimation;
-        } else if (this.left) {
-            this.currentAnimation = this.leftAnimation;
-        } else {
-            this.currentAnimation = this.idleAnimation;
-        }
-
-        //only shows falling when going down height of a double jump
-        if (this.vel <= 10) {
-            ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
-                this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
-        } else {
-            ctx.drawImage(this.sprite, 107, 110, 40, 56, this.x, this.y, 40, 56);
-        }
-            
         if (this.isDucking) {
             ctx.drawImage(this.ducking, 0, 0, 100, 100, this.x - 50, this.y - 25, 100, 100);
+            ctx.drawImage(this.sprite, 55, 58, 40, 56, this.x - 20, this.y, 40, 56);
             setTimeout( ()=> {
                 this.isDucking = false
-            }, 1500);
+            }, 500);
+        } else {
+            if (this.right){
+                this.currentAnimation = this.rightAnimation;
+            } else if (this.left) {
+                this.currentAnimation = this.leftAnimation;
+            } else {
+                this.currentAnimation = this.idleAnimation;
+            }
+    
+            //only shows falling when going down height of a double jump
+            if (this.vel <= 10) {
+                ctx.drawImage(this.sprite, this.currentAnimation[this.frame].sX, 
+                    this.currentAnimation[this.frame].sY, 40, 56, this.x - 20, this.y, 40, 56);
+            } else {
+                ctx.drawImage(this.sprite, 107, 110, 40, 56, this.x, this.y, 40, 56);
+            }
         }
+            
 
         if (this.frameCount <= 10){
             this.frameCount += 1;
@@ -144,18 +146,6 @@ export default class Player {
     
     duck(){
         this.isDucking = true;
-
-        // console.log(this.song.currentTime)
-        // if (this.song.currentTime + 0.05 ) { 
-        //     console.log('made it')
-        // } else {
-        //     console.log(this.song.currentTime)
-        // }
-        this.beats.forEach(beat => {
-            if (this.madeIt(beat)){
-                console.log('made it')
-            } 
-        })
     }
 
     madeIt(time){

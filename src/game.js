@@ -78,7 +78,7 @@ export default class TurnItDown {
     restart() {
         this.state.current = this.state.getReady;
         this.platform = new Platform(this.dimensions);
-        this.music = new Song("audio/sunflower.mp3", this.ctx, this.retry);
+        this.music = new Song("audio/faded.mp3", this.ctx, this.retry);
         this.player = new Player(this.dimensions, this.platform, this.music);
 
 
@@ -94,7 +94,7 @@ export default class TurnItDown {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
             this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
-        } else if (this.music.currentTime > 160) {
+        } else if (this.music.currentTime() >= 300) {
                 this.music.pause();
                 this.music.currentTime = 0;
                 this.state.current = this.state.over;
