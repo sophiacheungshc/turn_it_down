@@ -1,14 +1,37 @@
 <!DOCTYPE html>
 <head>
-    <title>Turn Up for What</title>
+    <title>Turn It Down</title>
     <script src="dist/main.js" charset="utf-8" defer></script>
     <link rel="stylesheet" type="text/css" href="app.css">
 </head>
 
 <body>
-    <h1>title here</h1>
-    <canvas id="tid-game" height="640" width="480">
-        Uh oh, your browser doesn't support HTML5! :(
-    </canvas>
+    <h1>Turn It Down</h1>
+    <main>
+        <div class="rules">
+            <p>
+                Your upstairs neighbors are at it again - blasting their music away in to the wee hours of the evening.
+                You decide to take matters up into your own hands and go shut them down... 
+            </p>
+            <p id="instructions">
+                How To Play:
+                <br>
+                1) ⬅️➡️ to move
+                <br>
+                2) ⬆️ to jump, ⬆️⬆️ to double-jump
+                <br>
+                3) press spacebar to duck on beat!
+            </p>
+            <!-- <img src="img/spacebar.png" alt="" id="spacebar">   -->
+        </div>
+        <canvas id="tid-game" height="640" width="480">
+            Uh oh, your browser doesn't support HTML5! :(
+        </canvas>
+    </main>
 </body>
+
+<footer>
+    <h3 id="creator">By Sophia Cheung</h3>
+    <img src="img/github.png" alt="" id="github">
+</footer>
 </html>

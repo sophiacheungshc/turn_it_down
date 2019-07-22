@@ -56,6 +56,7 @@ export default class TurnItDown {
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
             if (e.keyCode === 32) {
+                console.log(this.music.currentTime())
                 this.player.duck();
                 this.ducked = true;
                 setTimeout(() => {
