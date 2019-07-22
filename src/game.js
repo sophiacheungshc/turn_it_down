@@ -53,6 +53,7 @@ export default class TurnItDown {
     }
 
     key(e) {
+        e.preventDefault();
         if (this.state.current === this.state.game) {
             if (e.keyCode === 38) this.player.jump();
             if (e.keyCode === 37) this.player.left = true;
@@ -62,7 +63,7 @@ export default class TurnItDown {
                 this.ducked = true;
                 setTimeout(() => {
                     this.ducked = false
-                }, 500);
+                }, 1500);
             }
         } else {
             if (e.keyCode === 32) this.start();
@@ -126,9 +127,8 @@ export default class TurnItDown {
     }
 
     gameOver(){
-        this.song.onBeat();
-        // if ((this.music.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
-        if (this.player.y >= this.dimensions.height) {
+        if ((this.song.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
+        // if (this.player.y >= this.dimensions.height) {
             this.state.current = this.state.over;
             this.music.pause();
             this.music.currentTime = 0;
