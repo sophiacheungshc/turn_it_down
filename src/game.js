@@ -56,7 +56,7 @@ export default class TurnItDown {
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
             if (e.keyCode === 32) {
-                console.log(this.music.currentTime())
+                console.log(this.music.currentTime)
                 this.player.duck();
                 this.ducked = true;
                 setTimeout(() => {
@@ -78,7 +78,8 @@ export default class TurnItDown {
     restart() {
         this.state.current = this.state.getReady;
         this.platform = new Platform(this.dimensions);
-        this.music = new Song("audio/faded.mp3", this.ctx, this.retry);
+        this.song = new Song(this.ctx);
+        this.music = this.song.music;
         this.player = new Player(this.dimensions, this.platform, this.music);
 
 
@@ -94,7 +95,7 @@ export default class TurnItDown {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
             this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
-        } else if (this.music.currentTime() >= 300) {
+        } else if (this.music.currentTime >= 300) {
                 this.music.pause();
                 this.music.currentTime = 0;
                 this.state.current = this.state.over;
@@ -124,7 +125,7 @@ export default class TurnItDown {
     }
 
     gameOver(){
-        this.music.onBeat();
+        this.song.onBeat();
         // if ((this.music.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
         if (this.player.y >= this.dimensions.height) {
             this.state.current = this.state.over;

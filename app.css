@@ -27,7 +27,7 @@ main {
 }
 
 main > * {
-    margin: 1rem;
+    margin: 2rem;
 }
 
 p {
@@ -89,4 +89,9 @@ footer {
 
 #github:hover {
     cursor: pointer;
+}
+
+* {
+    color: white;
+    font-family: retroFont;
 }

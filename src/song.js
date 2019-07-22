@@ -1,9 +1,15 @@
 export default class Song {
 
-    constructor(src, ctx, retry) {
-        this.music = new Audio();
-        this.music.src = src;
+    constructor(ctx) {
+        
         this.ctx = ctx;
+
+        if (document.getElementById('sunflower-song').checked){
+            console.log('sunflower');
+            this.music = document.getElementById('sunflower');
+        } else {
+            this.music = document.getElementById('faded');
+        }
 
         this.alert = new Image();
         this.alert.src = "img/spacebar.png";

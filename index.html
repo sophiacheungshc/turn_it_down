@@ -11,7 +11,7 @@
             <h1>Turn It Down</h1>
             <p>
                 Your upstairs neighbors are at it again - blasting their music away in to the wee hours of the evening.
-                You decide to take matters up into your own hands and go shut them down... 
+                You decided to take matters up into your own hands and go shut them down... 
             </p>
             <p id="instructions">
                 How To Play:
@@ -27,6 +27,19 @@
         <canvas id="tid-game" height="640" width="480">
             Uh oh, your browser doesn't support HTML5! :(
         </canvas>
+        <audio id="sunflower" src="audio/sunflower.mp3" type="audio/mpeg"></audio>
+        <audio id="faded" src="audio/faded.mp3" type="audio/mpeg"></audio>
+        <audio id="djsnake" src="audio/djsnake.mp3" type="audio/mpeg"></audio>
+        <div class="songs-select">
+            <h3>Pick a song:</h3>
+            <label>Sunflower:
+                <input type="radio" name="song" id="sunflower-song" value="sunflower" checked>
+            </label>
+            <br>
+            <label>Faded:
+                <input type="radio" name="song" value="faded" >
+            </label>
+        </div>
     </main>
 </body>
 
