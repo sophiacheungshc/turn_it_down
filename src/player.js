@@ -120,7 +120,7 @@ export default class Player {
             ctx.drawImage(this.ducking, 0, 0, 100, 100, this.x - 50, this.y - 25, 100, 100);
             setTimeout( ()=> {
                 this.isDucking = false
-            }, 100);
+            }, 1500);
         }
 
         if (this.frameCount <= 10){
