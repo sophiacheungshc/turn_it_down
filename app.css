@@ -88,7 +88,6 @@ h3 {
 }
 
 footer {
-    justify-content: flex-end;
     display: flex;
     flex-direction: row;
     margin-bottom: 5px;
@@ -96,6 +95,22 @@ footer {
     padding: 0 10px;
 }
 
+footer > * {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+    align-items: center;
+    padding: 0 10px;
+    position: relative;
+}
+
+.left-foot {
+    left: 8rem;
+}
+
+.right-foot {
+    left: 400px;
+}
 #creator {
     font-family: regFont;
     width: fit-content;
@@ -121,4 +136,10 @@ footer {
 
 input {
     cursor: pointer;
+}
+
+#speaker {
+    width: 32px;
+    height: 32px;
+    margin: 0 12px;
 }
