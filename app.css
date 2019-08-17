@@ -3,6 +3,11 @@
   src: url(fipps-regular.otf);
 }
 
+@font-face {
+  font-family: regFont;
+  src: url(8-Bit\ Madness.ttf);
+}
+
 canvas {
     border: 1px solid white;
     display: block;
@@ -14,7 +19,7 @@ body .flash {
 }
 
 body {
-    width: auto;
+    width: 1020px;
     background-color: #000;
     display: flex;
     flex-direction: column;
@@ -27,25 +32,42 @@ main {
 }
 
 main > * {
-    margin: 2rem;
+    margin: 1rem;
 }
 
 p {
     text-align: center;
-    font-size: 12px;
-    font-family: retroFont;
-    color: white;
+    font-size: 28px;
+    line-height: 28px;
 }
 
 .rules {
     width: 480px;
     min-width: 480px;
+    font-size: 28px;
+    font-family: regFont;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #instructions {
-    font-size: 18px;       
+    font-size: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 2rem;
+    border-top: 1px dashed cornflowerblue;
+    border-bottom: 1px dashed cornflowerblue;
+    width: inherit;
 }
-h1 {
+
+#instructions p {
+    margin: 10px 0;
+}
+
+.rules h1 {
     font-family: retroFont;
     color: white;
     display: block;
@@ -55,15 +77,11 @@ h1 {
     height: 5rem;
     width: fit-content;
     justify-self: center;
-}
-
-#spacebar {
-    margin-left: 11rem;
+    letter-spacing: 5px;
+    font-weight: 100;
 }
 
 h3 {
-    font-family: retroFont;
-    color: white;
     display: block;
     font-size: 12px;
     text-align: center;
@@ -74,24 +92,33 @@ footer {
     display: flex;
     flex-direction: row;
     margin-bottom: 5px;
+    align-items: center;
+    padding: 0 10px;
 }
 
 #creator {
+    font-family: regFont;
     width: fit-content;
     margin: 0 1rem;
+    color: white;
+    font-size: 24px;
 }
 
 #github {
-    height: 30px;
-    width: 30px;
-    margin-right: 1rem;
+    transition: all .2s ease-in-out;
 }
 
 #github:hover {
     cursor: pointer;
+    transform: scale(1.1);
 }
 
-* {
-    color: white;
-    font-family: retroFont;
+.desc {
+    border-top: 1px dashed mediumpurple;
+    border-bottom: 1px dashed mediumpurple;
+    padding: 1rem 0;
+}
+
+input {
+    cursor: pointer;
 }

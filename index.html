@@ -9,37 +9,44 @@
     <main>
         <div class="rules">
             <h1>Turn It Down</h1>
-            <p>
+            <p class="desc">
                 Your upstairs neighbors are at it again - blasting their music away in to the wee hours of the evening.
                 You decided to take matters up into your own hands and go shut them down... 
             </p>
-            <p id="instructions">
-                How To Play:
-                <br>
-                1) ⬅️➡️ to move
-                <br>
-                2) ⬆️ to jump, ⬆️⬆️ to double-jump
-                <br>
-                3) press spacebar to duck on beat!
-            </p>
-            <img src="img/spacebar.png" alt="" id="spacebar">  
+            <div id="instructions">
+                <p>
+                    How To Play:
+                    <br>
+                    1) Pick a song
+                </p>
+                <div class="songs-select">
+                    <label>Sunflower:
+                        <input type="radio" name="song" id="sunflower-song" value="sunflower" checked>
+                    </label>
+                    <br>
+                    <label>Faded:
+                        <input type="radio" name="song" value="faded" >
+                    </label>
+                </div>
+                <p>
+                    2) ⬅️➡️ to move
+                    <br>
+                    3) ⬆️ to jump, ⬆️⬆️ to double-jump
+                    <br>
+                    4) feel & see the rhythm, press spacebar to duck on beat!
+                </p>
+                <img src="img/spacebar.png" alt="" id="spacebar">  
+            </div>
         </div>
         <canvas id="tid-game" height="640" width="480">
             Uh oh, your browser doesn't support HTML5! :(
         </canvas>
+        <canvas id="">
+            
+        </canvas>
         <audio id="sunflower" src="audio/sunflower.mp3" type="audio/mpeg"></audio>
         <audio id="faded" src="audio/faded.mp3" type="audio/mpeg"></audio>
         <audio id="djsnake" src="audio/djsnake.mp3" type="audio/mpeg"></audio>
-        <div class="songs-select">
-            <h3>Pick a song:</h3>
-            <label>Sunflower:
-                <input type="radio" name="song" id="sunflower-song" value="sunflower" checked>
-            </label>
-            <br>
-            <label>Faded:
-                <input type="radio" name="song" value="faded" >
-            </label>
-        </div>
     </main>
 </body>
 

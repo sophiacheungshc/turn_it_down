@@ -63,7 +63,7 @@ export default class TurnItDown {
                 this.ducked = true;
                 setTimeout(() => {
                     this.ducked = false
-                }, 1500);
+                }, 15000);
             }
         } else {
             if (e.keyCode === 32) this.start();
@@ -127,6 +127,7 @@ export default class TurnItDown {
     }
 
     gameOver(){
+        
         if ((this.song.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
         // if (this.player.y >= this.dimensions.height) {
             this.state.current = this.state.over;
