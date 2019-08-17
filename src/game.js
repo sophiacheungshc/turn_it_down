@@ -93,7 +93,7 @@ export default class TurnItDown {
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
 
-        if (this.gameOver()) {
+        if (this.state.current !== this.state.getReady && this.gameOver()) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
             this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
@@ -128,13 +128,13 @@ export default class TurnItDown {
 
     gameOver(){
         
-        if ((this.song.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
-        // if (this.player.y >= this.dimensions.height) {
-            this.state.current = this.state.over;
-            this.music.pause();
-            this.music.currentTime = 0;
-            return true;
-        } 
+        // if ((this.song.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
+        // // if (this.player.y >= this.dimensions.height) {
+        //     this.state.current = this.state.over;
+        //     this.music.pause();
+        //     this.music.currentTime = 0;
+        //     return true;
+        // } 
 
         return false;
     }

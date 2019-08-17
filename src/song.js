@@ -17,6 +17,13 @@ export default class Song {
         this.alert = new Image();
         this.alert.src = "img/spacebar.png";
 
+        const volSlider = document.getElementById("volSlider");
+        volSlider.addEventListener('input', function () {
+            document.querySelectorAll("audio").forEach( song => {
+                song.volume = volSlider.value
+            });
+        }); 
+
     }
 
     play(){

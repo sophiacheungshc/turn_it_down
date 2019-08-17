@@ -13,10 +13,10 @@ export default class Player {
         this.platform = platform;
         this.song = song;
 
-        ///player will start off on one of the bottom tiles
-        const startTile = this.platform.tiles[4][Math.floor(Math.random() * 2)];
+        ///player will start off on one of the top tiles
+        const startTile = this.platform.tiles[1][Math.floor(Math.random() * 2)];
         this.x = startTile.x + (startTile.w / 2);
-        this.y = 500 - CONSTANTS.PLAYER_HEIGHT;
+        this.y = startTile.y - CONSTANTS.PLAYER_HEIGHT;
 
         this.vel = 0;
         this.jumpCount = 2;

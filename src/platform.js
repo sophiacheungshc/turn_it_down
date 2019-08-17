@@ -37,11 +37,11 @@ export default class Platform {
 
         //100-500 indicate y positions => lines 1 - 5
         this.tiles = [
+            ///player will start off on one of these top tiles
             this.randomTiles(100),
             this.randomTiles(200),
             this.randomTiles(300),
             this.randomTiles(400),
-            ///player will start off on one of these bottom tiles
             this.randomTiles(500)
         ];
 
@@ -68,8 +68,8 @@ export default class Platform {
 
     moveTiles() {
         this.eachTileLine(function (tileLine) {
-            // tileLine[0].y += 1;
-            // tileLine[1].y += 1;
+            tileLine[0].y += 1;
+            tileLine[1].y += 1;
 
             const newTiles = this.randomTiles(100);
 
