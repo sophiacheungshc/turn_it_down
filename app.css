@@ -62,7 +62,7 @@ p {
     align-items: center;
 }
 
-#instructions {
+.instructions {
     font-size: 28px;
     display: flex;
     flex-direction: column;
@@ -73,7 +73,7 @@ p {
     width: inherit;
 }
 
-#instructions p {
+.instructions p {
     margin: 10px 0;
 }
 
@@ -159,4 +159,32 @@ input {
     width: 100vw;
     position: absolute;
     border: none;
+}
+
+#ins-first {
+    margin-bottom: 0;
+}
+
+.lab-first {
+    background-color: darkgoldenrod;
+}
+
+.lab-sec {
+    background-color: darkorchid;
+}
+
+.lab-third {
+    background-color: darkblue;
+}
+
+.songs-select {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.songs-select > label {
+    width: 340px;
+    padding-left: 10px;
 }
