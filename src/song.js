@@ -53,8 +53,10 @@ export default class Song {
     }
 
     visualize() {
-        let x = (Math.round(this.music.currentTime * 10) / 10) % 1.3;
-        if (this.music.currentTime !== 0 && (x === 0 || (Math.round(x * 10) / 10) % 1.3 === 0)) {
+        let x = (Math.round(this.music.currentTime * 10) / 10) % 2.7;
+        if (this.music.currentTime !== 0 && (x === 0 || (Math.round(x * 10) / 10) % 2.7 === 0)) {
+        // let x = (Math.round(this.music.currentTime * 10) / 10) % 1.3;
+        // if ((Math.round(this.music.currentTime * 10) / 10) === x) {
             this.ctx.fillStyle = "red";
             this.ctx.fillRect(0, 0, this.width, this.height);
             // console.log(this.music.currentTime)
