@@ -14,11 +14,18 @@ canvas {
     margin: 0 1rem;
 }
 
+body {
+    background-color: #000;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+}
+
 body .flash {
     background-color: white;
 }
 
-body {
+.foreground {
     width: 1020px;
     background-color: #000;
     display: flex;
@@ -142,4 +149,11 @@ input {
     width: 32px;
     height: 32px;
     margin: 0 12px;
+}
+
+#visualizer {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    border: none;
 }
