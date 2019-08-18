@@ -67,7 +67,7 @@ export default class TurnItDown {
                 this.ducked = true;
                 setTimeout(() => {
                     this.ducked = false
-                }, 15000);
+                }, 500);
             }
         } else {
             if (e.keyCode === 32) this.start();
@@ -136,13 +136,13 @@ export default class TurnItDown {
 
     gameOver(){
         
-        // if ((this.song.onBeat() && !this.ducked) || this.player.y >= this.dimensions.height) {
-        // // if (this.player.y >= this.dimensions.height) {
-        //     this.state.current = this.state.over;
-        //     this.music.pause();
-        //     this.music.currentTime = 0;
-        //     return true;
-        // } 
+        if ((this.song.needaDuck && !this.ducked) || this.player.y >= this.dimensions.height) {
+        // if (this.player.y >= this.dimensions.height) {
+            this.state.current = this.state.over;
+            this.music.pause();
+            this.music.currentTime = 0;
+            return true;
+        } 
 
         return false;
     }
