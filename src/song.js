@@ -29,39 +29,24 @@ export default class Song {
 
         this.width = this.canvas.width;
         this.height = this.canvas.height;
-        // this.x = 0;
-
-        // let context = new AudioContext();
-        // let src = context.createMediaElementSource(this.music);
-        // this.analyser = context.createAnalyser();
-        // src.connect(this.analyser);
-        // this.analyser.connect(context.destination);
-
-        // this.analyser.fftSize = 256;
-
-        // this.bufferLength = this.analyser.frequencyBinCount;
-        // console.log(this.bufferLength);
-
-        // this.dataArray = new Uint8Array(this.bufferLength);
-
-        // this.width = this.canvas.width;
-        // this.height = this.canvas.height;
-
-        // this.barWidth = (this.width / this.bufferLength) * 2.5;
-        // this.barHeight = 0;
-        // this.x = 0;
+        this.topY = 0;
+        this.bottomY = this.height;
     }
 
     visualize() {
         let x = (Math.round(this.music.currentTime * 10) / 10) % 2.7;
         if (this.music.currentTime !== 0 && (x === 0 || (Math.round(x * 10) / 10) % 2.7 === 0)) {
-        // let x = (Math.round(this.music.currentTime * 10) / 10) % 1.3;
-        // if ((Math.round(this.music.currentTime * 10) / 10) === x) {
             this.ctx.fillStyle = "red";
             this.ctx.fillRect(0, 0, this.width, this.height);
+            this.topY = 0;
+            this.bottomY = this.height;
             // console.log(this.music.currentTime)
         } else {
             this.ctx.clearRect(0, 0, this.width, this.height);
+            this.ctx.fillRect(0, this.topY, this.width, 10);
+            this.ctx.fillRect(0, this.bottomY, this.width, 10);
+            this.topY += 0.5;
+            this.bottomY -= 0.5;
         }
         
         // this.x = 0;
