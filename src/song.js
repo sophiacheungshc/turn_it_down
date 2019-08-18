@@ -31,22 +31,27 @@ export default class Song {
         this.height = this.canvas.height;
         this.topY = 0;
         this.bottomY = this.height;
+        this.op = 0;
     }
 
     visualize() {
         let x = (Math.round(this.music.currentTime * 10) / 10) % 2.7;
         if (this.music.currentTime !== 0 && (x === 0 || (Math.round(x * 10) / 10) % 2.7 === 0)) {
-            this.ctx.fillStyle = "red";
+            this.ctx.fillStyle = 'white';
             this.ctx.fillRect(0, 0, this.width, this.height);
             this.topY = 0;
             this.bottomY = this.height;
+            this.op = 0;
             // console.log(this.music.currentTime)
         } else {
             this.ctx.clearRect(0, 0, this.width, this.height);
+            this.ctx.fillStyle = `rgba(200, 166, 234, ${this.op})`;
             this.ctx.fillRect(0, this.topY, this.width, 10);
+            this.ctx.fillStyle = `rgba(104, 157, 255, ${this.op})`;
             this.ctx.fillRect(0, this.bottomY, this.width, 10);
             this.topY += 0.5;
             this.bottomY -= 0.5;
+            this.op += 0.008;
         }
         
         // this.x = 0;

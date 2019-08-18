@@ -7,6 +7,9 @@ export default class TurnItDown {
         this.ctx = canvas.getContext("2d");
         this.dimensions = { width: canvas.width, height: canvas.height };
 
+        this.visualizer = document.getElementById("visualizer");
+        this.ctx2 = this.visualizer.getContext("2d");
+
         this.background = new Image();
         this.background.src = "img/background.png";
         this.ready = new Image();
@@ -93,10 +96,10 @@ export default class TurnItDown {
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
-        this.song.visualize();
 
         if (this.state.current !== this.state.getReady && this.gameOver()) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
+            this.ctx2.clearRect(0, 0, this.visualizer.width, this.visualizer.height);
             this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
             this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
         } else if (this.music.ended) {
@@ -104,12 +107,15 @@ export default class TurnItDown {
                 this.music.currentTime = 0;
                 this.state.current = this.state.over;
                 this.ctx.clearRect(0, 0, 480, 640);
+                this.ctx2.clearRect(0, 0, this.visualizer.width, this.visualizer.height);
             this.ctx.drawImage(this.won, 0, 0, 439, 350, 20, 100, 439, 350);
         } else {
             if (this.state.current === this.state.game) {
                 this.frame = requestAnimationFrame(this.animate);
+                this.song.visualize();
             } else if (this.state.current === this.state.over && this.music.currentTime === 0) {
                 this.ctx.clearRect(0, 0, 480, 640);
+                this.ctx2.clearRect(0, 0, this.visualizer.width, this.visualizer.height);
                 // this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 5, this.dimensions.height / 6, 250, 134);
                 this.frame = requestAnimationFrame(this.animate);
             } else if (this.state.current === this.state.getReady) {
