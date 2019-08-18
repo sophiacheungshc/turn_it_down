@@ -2,7 +2,9 @@ export default class Song {
 
     constructor(ctx) {
         
-        this.ctx = ctx;
+        // this.ctx = ctx;
+        this.canvas = document.getElementById("visualizer");
+        this.ctx = this.canvas.getContext("2d");
 
         if (document.getElementById('sunflower-song').checked){
             this.music = document.getElementById('sunflower');
@@ -25,6 +27,60 @@ export default class Song {
             });
         }); 
 
+        this.width = this.canvas.width;
+        this.height = this.canvas.height;
+        // this.x = 0;
+
+        // let context = new AudioContext();
+        // let src = context.createMediaElementSource(this.music);
+        // this.analyser = context.createAnalyser();
+        // src.connect(this.analyser);
+        // this.analyser.connect(context.destination);
+
+        // this.analyser.fftSize = 256;
+
+        // this.bufferLength = this.analyser.frequencyBinCount;
+        // console.log(this.bufferLength);
+
+        // this.dataArray = new Uint8Array(this.bufferLength);
+
+        // this.width = this.canvas.width;
+        // this.height = this.canvas.height;
+
+        // this.barWidth = (this.width / this.bufferLength) * 2.5;
+        // this.barHeight = 0;
+        // this.x = 0;
+    }
+
+    visualize() {
+        let x = (Math.round(this.music.currentTime * 10) / 10) % 1.3;
+        if (this.music.currentTime !== 0 && (x === 0 || (Math.round(x * 10) / 10) % 1.3 === 0)) {
+            this.ctx.fillStyle = "red";
+            this.ctx.fillRect(0, 0, this.width, this.height);
+            // console.log(this.music.currentTime)
+        } else {
+            this.ctx.clearRect(0, 0, this.width, this.height);
+        }
+        
+        // this.x = 0;
+
+        // this.analyser.getByteFrequencyData(this.dataArray);
+
+        // this.ctx.fillStyle = "#000";
+        // this.ctx.fillRect(0, 0, this.width, this.height);
+
+        // for (var i = 0; i < this.bufferLength; i++) {
+        //     this.barHeight = this.dataArray[i];
+
+        //     var r = this.barHeight + (25 * (i / this.bufferLength));
+        //     var g = 250 * (i / this.bufferLength);
+        //     var b = 50;
+
+        //     this.ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+        //     this.ctx.fillRect(this.x, this.height - this.barHeight, this.barWidth, this.barHeight);
+
+        //     this.x += this.barWidth + 1;
+        // }
     }
 
     play(){

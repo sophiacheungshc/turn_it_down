@@ -59,6 +59,7 @@ export default class TurnItDown {
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
             if (e.keyCode === 32) {
+                console.log(this.music.currentTime)
                 this.player.duck();
                 this.ducked = true;
                 setTimeout(() => {
@@ -92,6 +93,7 @@ export default class TurnItDown {
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
+        this.song.visualize();
 
         if (this.state.current !== this.state.getReady && this.gameOver()) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
