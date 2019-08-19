@@ -2,7 +2,7 @@
 
 [Turn It Down Live!](https://sophiacheungshc.github.io/turn_it_down)
 
-Turn It Down is a vertical platformer web game with a musical twist. Built entirely with JavaScript, HTML5 & CSS3, this little canvas game encompasses what I loved playing as a kid: platformers and rhythm mini games.
+Turn It Down is a vertical platformer web game with a musical twist. Built entirely with JavaScript, HTML5 & CSS3, this little canvas game encompasses what I loved playing as a kid: mini platformers and music rhythm games.
 
 ## Technologies
 * [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
@@ -12,8 +12,8 @@ Turn It Down is a vertical platformer web game with a musical twist. Built entir
 * Player controls sprite by pressing arrow keys and spacebar, with different animations to depict different types of movement.
 * Platform tiles are randomized and moving down at a faster rate than the background, creating an illusion of upward movement.
 * Three levels of difficulty (three different songs) are available for player to select. 
-* Lives system displays number of hearts with respect to the number of extra lives left which can endure a missed beat.
-* Beats visualization achieved with two moving bars in the background pose as indication for player to duck.
+* Health system displays number of hearts with respect to the number of extra lives left which can endure a missed beat.
+* Beats visualization achieved with moving bars in the background pose as indication for player to duck.
 
 <p align="center">
   <img width="600" height="350" src="https://github.com/sophiacheungshc/turn_it_down/blob/master/tid.gif">
