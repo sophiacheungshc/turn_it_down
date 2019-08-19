@@ -20,6 +20,8 @@ export default class TurnItDown {
         this.retry.src = "img/retry.png";
         this.won = new Image();
         this.won.src = "img/won.png";
+        this.hearts = new Image();
+        this.hearts.src = "img/harts.png";
 
         this.x = 0;
         this.y = 600;
@@ -37,10 +39,21 @@ export default class TurnItDown {
             won: 3
         }
 
+        //w=50
+        this.heartsAnimation = [
+            { sX: 1, sY: 0 },
+            { sX: 37, sY: 0 },
+            { sX: 67, sY: 0 },
+            { sX: 91, sY: 0 },
+            { sX: 117, sY: 0 }
+        ];
+        this.heartsFrame = 0;
+        this.heartsFrameCount = 0;
+
         this.ducked = false;
         this.prevBeat = false;
         this.state.current = this.state.getReady;
-        
+
         this.ready.onload = () => this.ctx.drawImage(this.ready, 0, 0, 400, 132, 45, this.dimensions.height / 4, 400, 132);
     }
     
@@ -50,23 +63,10 @@ export default class TurnItDown {
         this.platform = new Platform(this.dimensions);
         this.song = new Song(this.ctx);
         this.music = this.song.music;
-        this.player = new Player(this.dimensions, this.platform, this.music);
-        
-        this.state.current = this.state.game;
+        this.player = new Player(this.dimensions, this.platform, this.music);        
         this.music.play();
 
         this.animate();
-        // switch(this.state.current){
-        //     case this.state.getReady:
-        //         this.state.current = this.state.game;
-        //         this.song = new Song(this.ctx);
-        //         this.music = this.song.music;
-        //         this.music.play();
-        //         break;
-        //     case this.state.over:
-        //         this.restart();
-        //         break;
-        // }
     }
 
     key(e) {
@@ -82,8 +82,17 @@ export default class TurnItDown {
                     this.ducked = false
                 }, 500);
             }
-        } else {
-            if (e.keyCode === 32) this.start();
+        } else if (e.keyCode === 32) {
+            if (this.state.current === this.state.getReady) {
+                this.state.current = this.state.game;
+                this.start();
+                //allow for time to switch from game over screen to start, or else would be too sudden
+            } else {
+                this.state.current = this.state.game;
+                setTimeout(() => {
+                    this.start();
+                }, 800);
+            }
         }
     }
 
@@ -93,23 +102,13 @@ export default class TurnItDown {
             if (e.keyCode === 39) this.player.right = false;
         }
     }
-    
-    restart() {
-        this.state.current = this.state.getReady;
-        this.platform = new Platform(this.dimensions);
-        this.song = new Song(this.ctx);
-        this.music = this.song.music;
-        this.player = new Player(this.dimensions, this.platform, this.music);
-
-
-        this.animate();
-    }
 
     animate(){
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
         this.checkGameOver();
+        this.heartsDraw();
 
         if (this.state.current !== this.state.game) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
@@ -155,6 +154,25 @@ export default class TurnItDown {
             this.state.current = this.state.won;
         }
 
+    }
+
+    heartsDraw() {
+        
+        if (this.lives > 1) {
+            this.ctx.drawImage(this.hearts, this.heartsAnimation[this.heartsFrame].sX,
+                this.heartsAnimation[this.heartsFrame].sY, 30, 30, 390, 10, 30, 30);
+            if (this.lives > 7) {
+                this.ctx.drawImage(this.hearts, this.heartsAnimation[this.heartsFrame].sX,
+                    this.heartsAnimation[this.heartsFrame].sY, 30, 30, 430, 10, 30, 30);
+            }
+        }
+
+        if (this.heartsFrameCount < 10) {
+            this.heartsFrameCount += 1;
+        } else {
+            this.heartsFrame = (this.heartsFrame + 1) % 5;
+            this.heartsFrameCount = 0;
+        }
     }
 
 }
