@@ -142,6 +142,7 @@ footer > * {
     border-top: 1px dashed mediumpurple;
     border-bottom: 1px dashed mediumpurple;
     padding: 1rem 0;
+    margin: 0;
 }
 
 input {
@@ -187,4 +188,10 @@ input {
 .songs-select > label {
     width: 340px;
     padding-left: 10px;
+}
+
+.maximize {
+    margin: 0;
+    font-size: 27px;
+    color: lightgoldenrodyellow;
 }
