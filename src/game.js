@@ -33,26 +33,40 @@ export default class TurnItDown {
             current: 0,
             getReady: 0,
             game: 1,
-            over: 2
+            over: 2,
+            won: 3
         }
 
         this.ducked = false;
         this.prevBeat = false;
-        this.restart();
+        this.state.current = this.state.getReady;
+        
+        this.ready.onload = () => this.ctx.drawImage(this.ready, 0, 0, 400, 132, 45, this.dimensions.height / 4, 400, 132);
     }
     
     start(){
-        switch(this.state.current){
-            case this.state.getReady:
-                this.state.current = this.state.game;
-                this.song = new Song(this.ctx);
-                this.music = this.song.music;
-                this.music.play();
-                break;
-            case this.state.over:
-                this.restart();
-                break;
-        }
+        //can miss 2 beats, die on 3rd missed beat
+        this.lives = 13;
+        this.platform = new Platform(this.dimensions);
+        this.song = new Song(this.ctx);
+        this.music = this.song.music;
+        this.player = new Player(this.dimensions, this.platform, this.music);
+        
+        this.state.current = this.state.game;
+        this.music.play();
+
+        this.animate();
+        // switch(this.state.current){
+        //     case this.state.getReady:
+        //         this.state.current = this.state.game;
+        //         this.song = new Song(this.ctx);
+        //         this.music = this.song.music;
+        //         this.music.play();
+        //         break;
+        //     case this.state.over:
+        //         this.restart();
+        //         break;
+        // }
     }
 
     key(e) {
@@ -62,7 +76,6 @@ export default class TurnItDown {
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
             if (e.keyCode === 32) {
-                console.log(this.music.currentTime)
                 this.player.duck();
                 this.ducked = true;
                 setTimeout(() => {
@@ -96,33 +109,26 @@ export default class TurnItDown {
         this.backgroundDraw();
         this.platform.animate(this.ctx);
         this.player.animate(this.ctx);
+        this.checkGameOver();
 
-        if (this.state.current !== this.state.getReady && this.gameOver()) {
+        if (this.state.current !== this.state.game) {
             this.ctx.clearRect(0, 0, this.dimensions.width, this.dimensions.height);
             this.ctx2.clearRect(0, 0, this.visualizer.width, this.visualizer.height);
-            this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
-            this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
-        } else if (this.music.ended) {
-                this.music.pause();
-                this.music.currentTime = 0;
-                this.state.current = this.state.over;
-                this.ctx.clearRect(0, 0, 480, 640);
-                this.ctx2.clearRect(0, 0, this.visualizer.width, this.visualizer.height);
-            this.ctx.drawImage(this.won, 0, 0, 439, 350, 20, 100, 439, 350);
+            switch (this.state.current){
+                case this.state.over:
+                    this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 4, this.dimensions.height / 6, 250, 134);
+                    this.ctx.drawImage(this.retry, 0, 0, 400, 34, 45, this.dimensions.height / 2, 400, 34);
+                    break;
+                case this.state.won:
+                    this.ctx.drawImage(this.won, 0, 0, 439, 350, 20, 100, 439, 350);
+                    break;
+                case this.state.getReady:
+                    this.ctx.drawImage(this.ready, 0, 0, 400, 132, 45, this.dimensions.height / 4, 400, 132);
+                    break;
+            }
         } else {
-            if (this.state.current === this.state.game) {
-                this.frame = requestAnimationFrame(this.animate);
-                this.song.visualize();
-            } else if (this.state.current === this.state.over && this.music.currentTime === 0) {
-                this.ctx.clearRect(0, 0, 480, 640);
-                this.ctx2.clearRect(0, 0, this.visualizer.width, this.visualizer.height);
-                // this.ctx.drawImage(this.over, 0, 0, 250, 134, this.dimensions.width / 5, this.dimensions.height / 6, 250, 134);
-                this.frame = requestAnimationFrame(this.animate);
-            } else if (this.state.current === this.state.getReady) {
-                this.ctx.clearRect(0, 0, 480, 640);
-                this.ctx.drawImage(this.ready, 0, 0, 400, 132, 45, this.dimensions.height / 4, 400, 132);
-                this.frame = requestAnimationFrame(this.animate);
-            }    
+            this.frame = requestAnimationFrame(this.animate);
+            this.song.visualize();
         }
     }
         
@@ -134,17 +140,21 @@ export default class TurnItDown {
         this.y -= 0.2;
     }
 
-    gameOver(){
-        
-        if ((this.song.needaDuck && !this.ducked) || this.player.y >= this.dimensions.height) {
-        // if (this.player.y >= this.dimensions.height) {
+    checkGameOver(){
+        if (this.song.needaDuck && !this.ducked){
+            this.lives -= 1;
+        }
+
+        if (this.lives <= 0 || this.player.y >= this.dimensions.height) {
             this.state.current = this.state.over;
             this.music.pause();
             this.music.currentTime = 0;
-            return true;
-        } 
+        } else if (this.music.ended) {
+            this.music.pause();
+            this.music.currentTime = 0;
+            this.state.current = this.state.won;
+        }
 
-        return false;
     }
 
 }
