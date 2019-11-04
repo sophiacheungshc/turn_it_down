@@ -47,6 +47,7 @@ export default class TurnItDown {
             { sX: 91, sY: 0 },
             { sX: 117, sY: 0 }
         ];
+        
         this.heartsFrame = 0;
         this.heartsFrameCount = 0;
 
@@ -75,7 +76,7 @@ export default class TurnItDown {
             if (e.keyCode === 38) this.player.jump();
             if (e.keyCode === 37) this.player.left = true;
             if (e.keyCode === 39) this.player.right = true;
-            if (e.keyCode === 32) {
+            if (e.keyCode === 32 && !this.ducked) {
                 this.player.duck();
                 this.ducked = true;
                 setTimeout(() => {
